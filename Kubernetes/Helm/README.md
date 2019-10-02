@@ -1,5 +1,7 @@
 # Helm
 
+容器即进程，Kubernetes 则解决了如何部署和运行应用的问题。对于任何一个部署在 Kubernetes 的应用而言，通常都可以由几个固定的部分组成：Ingress、Service、Deployment 等。直接使用 Kubernetes 原生的 YAML 定义服务，虽然能一定程度上简化应用的部署，但是对于大部分研发人员来说编写和使用 YAML 依然是一件相对痛苦的事情。Helm 应运而生，Helm 作为 Kubernetes 下的包管理工具，对原生服务定义过程进行了增强，通过模板化，参数化的形式大大简化用户部署 Kubernetes 应用的复杂度。
+
 Helm 可以理解为 Kubernetes 的包管理工具，可以方便地发现、共享和使用为 Kubernetes 构建的应用，有点类似于 Ubuntu 的 APT 和 CentOS 中的 yum。Helm chart 是用来封装 Kubernetes 原生应用程序的 yaml 文件，可以在你部署应用的时候自定义应用程序的一些 metadata，便与应用程序的分发。
 
 它包含几个基本概念：
