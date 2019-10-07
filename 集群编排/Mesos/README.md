@@ -2,7 +2,7 @@
 
 > Mesos is a meta, framework scheduler rather than an application scheduler like YARN.
 
-> [mesos-docker-tutorial-how-to-build-your-own-framework](https://www.voxxed.com/blog/2014/12/mesos-docker-tutorial-how-to-build-your-own-framework/)
+- [mesos-docker-tutorial-how-to-build-your-own-framework](https://www.voxxed.com/blog/2014/12/mesos-docker-tutorial-how-to-build-your-own-framework/)
 
 从各个常用的组件的协调角度，我们可以来看如下这张图：
 
