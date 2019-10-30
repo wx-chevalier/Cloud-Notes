@@ -8,7 +8,7 @@ Service 是对一组提供相同功能的 Pods 的抽象，并为它们提供一
 
 Kubernetes 将 Service Name 与 Service Cluster IP 做一个 DNS 域名映射，优雅的解决了服务发现的问题。Kubernetes 提供了内置的 dns 机制和 ClusterIP 机制，每个 Service 都自动注册域名，分配 ClusterIP，这样服务间的依赖可以从 IP 变为 name。DNS server 通过 kubernetes api server 来观测是否有新 Service 建立，并为其建立对应的 dns 记录。如果集群已经 enable DNS，那么 Pod 可以自动对 Service 做 name 解析。
 
-例：有个叫做”my-service“的 service，他对应的 kubernetes namespace 为”my-ns“，那么会有他对应的 dns 记录，叫做”my-service.my-ns“。那么在 my-ns 的 namespace 中的 pod 都可以对 my-service 做 name 解析来轻松找到这个 service。在其他 namespace 中的 pod 解析”my-service.my-ns“来找到他。解析出来的结果是这个 service 对应的 cluster ip。
+例：有个叫做 my-service 的 Service，他对应的 kubernetes namespace 为 my-ns，那么会有他对应的 dns 记录，叫做 my-service.my-ns。那么在 my-ns 的 namespace 中的 Pod 都可以对 my-service 做 name 解析来轻松找到这个 Service。在其他 namespace 中的 pod 解析 my-service.my-ns 来找到他。解析出来的结果是这个 Service 对应的 cluster ip。
 
 # 应用选择
 

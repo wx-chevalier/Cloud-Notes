@@ -47,7 +47,7 @@ spec:
 ```
 
 ```sh
-$ kubectl create -f https://raw.githubusercontent.com/wx-chevalier/Backend-Boilerplates/master/K8s/Base/nginx-deployment-service.yaml
+$ kubectl create -f nginx-deployment-service.yaml
 
 $ kubectl get pod
 
@@ -68,7 +68,7 @@ kubernetes                      ClusterIP      10.43.0.1       <none>           
 nginx                           NodePort       10.43.8.50      <none>                                   80:32356/TCP                 4m5s
 ```
 
-![](https://i.postimg.cc/6qQZRXwh/image.png)
+![Pod 列表](https://i.postimg.cc/6qQZRXwh/image.png)
 
 # Ingress
 
