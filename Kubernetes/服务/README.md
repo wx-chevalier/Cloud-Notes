@@ -4,7 +4,19 @@ RC、RS 和 Deployment 只是保证了支撑服务的微服务 Pod 的数量，�
 
 Service 是对一组提供相同功能的 Pods 的抽象，并为它们提供一个统一的入口。借助 Service，应用可以方便的实现服务发现与负载均衡，并实现应用的零宕机升级。譬如考虑一个图片处理后端应用程序，它运行了 3 个副本。这些副本是可互换的：frontend 不需要关心它们调用了哪个 backend 副本。然而组成这一组 backend 程序的 Pod 实际上可能会发生变化，frontend 客户端不应该也没必要知道，而且也不需要跟踪这一组 backend 的状态；Service 定义的抽象能够解耦这种关联。
 
-# 域名解析
+# IP 与域名解析
+
+RC、RS 和 Deployment 只是保证了支撑服务的微服务 Pod 的数量，但是没有解决如何访问这些服务的问题。如果说 Deployment 是负责保证 Pod 组的正常运行，那么 Service 就是用于保证以合理的网络来连接到该组 Pod。一个 Pod 只是一个运行服务的实例，随时可能在一个节点上停止，在另一个节点以一个新的 IP 启动一个新的 Pod，因此不能以确定的 IP 和端口号提供服务。要稳定地提供服务需要服务发现和负载均衡能力。服务发现完成的工作，是针对客户端访问的服务，找到对应的的后端服务实例。
+
+在 K8 集群中，客户端需要访问的服务就是 Service 对象。每个 Service 会对应一个集群内部有效的虚拟 IP，集群内部通过虚拟 IP 访问一个服务。Service 由 kube-proxy 实现软件负载均衡器，负责将对 Service 的请求转发到后端的某个 Pod 实例上。且 Kubernetes 为每个 Service 分配了一个全局唯一的虚拟 IP 地址(Cluster IP)，每个服务在 Kubernetes 架构上即变成了具备唯一 IP 地址的通信节点。Service 有三种类型：
+
+- ClusterIP：默认类型，自动分配一个仅 Cluster 内部可以访问的虚拟 IP。
+
+- NodePort：在 ClusterIP 基础上为 Service 在每台机器上绑定一个端口，这样就可以通过 `<NodeIP>:NodePort` 来访问该服务。
+
+- LoadBalancer：在 NodePort 的基础上，借助 Cloud Provider 创建一个外部的负载均衡器，并将请求转发到 `<NodeIP>:NodePort`。
+
+基于上述这点，Kubernetes 将 Service Name 与 Service Cluster IP 做一个 DNS 域名映射，优雅的解决了服务发现的问题。Kubernetes 提供了内置的 dns 机制和 ClusterIP 机制，每个 Service 都自动注册域名，分配 ClusterIP，这样服务间的依赖可以从 IP 变为 name。DNS server 通过 kubernetes api server 来观测是否有新 Service 建立，并为其建立对应的 dns 记录。如果集群已经 enable DNS，那么 Pod 可以自动对 Service 做 name 解析。
 
 Kubernetes 将 Service Name 与 Service Cluster IP 做一个 DNS 域名映射，优雅的解决了服务发现的问题。Kubernetes 提供了内置的 dns 机制和 ClusterIP 机制，每个 Service 都自动注册域名，分配 ClusterIP，这样服务间的依赖可以从 IP 变为 name。DNS server 通过 kubernetes api server 来观测是否有新 Service 建立，并为其建立对应的 dns 记录。如果集群已经 enable DNS，那么 Pod 可以自动对 Service 做 name 解析。
 
