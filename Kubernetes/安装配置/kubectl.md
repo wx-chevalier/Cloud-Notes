@@ -137,7 +137,7 @@ $ curl http://<public-node-ip>:<node-port>
 
 ## 对象创建
 
-\$ kubectl 通用可以基于 Yaml 文件进行应用的生命周期管理：
+kubectl 可以基于 Yaml 文件进行应用的生命周期管理：
 
 ```sh
 # 创建
