@@ -366,9 +366,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ## 在 Kubernetes 集群中运行 terminal
 
-在访问集群中的服务和 Pod 时，我们需要将其暴露出来，这样才可以从公网访问它们，或在本机和集群中运行的服务之间运行 Kube 代理或转发端口。
-
-然而有时候我们可能并不想暴露任何服务或转发端口，而只需要运行某些非常简单的 Curl 命令。为此我会通过 Bash profile 加载一个函数，借此在集群内部使用 radial/busyboxplus:curl 镜像运行一个 Pod，通过这样的方式就可以访问终端，进而可以针对集群内部的服务和 IP 运行 Curl 命令。我将这个函数称之为 kbash，用法如下：
+在访问集群中的服务和 Pod 时，我们需要将其暴露出来，这样才可以从公网访问它们，或在本机和集群中运行的服务之间运行 Kube 代理或转发端口。然而有时候我们可能并不想暴露任何服务或转发端口，而只需要运行某些非常简单的 Curl 命令。为此我会通过 Bash profile 加载一个函数，借此在集群内部使用 radial/busyboxplus:curl 镜像运行一个 Pod，通过这样的方式就可以访问终端，进而可以针对集群内部的服务和 IP 运行 Curl 命令。我将这个函数称之为 kbash，用法如下：
 
 ```sh
 $ kbash
