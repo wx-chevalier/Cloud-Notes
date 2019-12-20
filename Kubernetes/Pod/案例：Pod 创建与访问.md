@@ -84,7 +84,7 @@ spec:
         ["-c", "echo Hello from the debian container > /pod-data/index.html"]
 ```
 
-在配置文件中，您可以看到 Pod 具有一个名为 shared-data 的卷。配置文件中列出的第一个容器运行 nginx 服务器。 共享卷的安装路径为 `/usr/share/nginx/html`。第二个容器基于 debian 映像，并且具有 `/pod-data` 的安装路径。第二个容器运行以下命令，然后终止。
+在配置文件中，您可以看到 Pod 具有一个名为 shared-data 的卷。配置文件中列出的第一个容器运行 nginx 服务器。共享卷的安装路径为 `/usr/share/nginx/html`。第二个容器基于 debian 映像，并且具有 `/pod-data` 的安装路径。第二个容器运行以下命令，然后终止。
 
 ```sh
 $ echo Hello from the debian container > /pod-data/index.html
