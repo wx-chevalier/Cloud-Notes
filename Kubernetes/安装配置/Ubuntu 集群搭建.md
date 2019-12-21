@@ -4,6 +4,16 @@
 
 # 镜像解析
 
+首先添加 Docker 官方的国内镜像：
+
+```sh
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://registry.docker-cn.co"]
+}
+EOF
+```
+
 gcr.io 的很多镜像国内不便于访问，有同学将 [gcr.io 相关镜像](https://github.com/anjia0532/gcr.io_mirror) pull 下来，然后 push 到 docker 官方仓库，相关转换语法如下：
 
 ```sh
