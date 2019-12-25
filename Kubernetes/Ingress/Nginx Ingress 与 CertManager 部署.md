@@ -137,12 +137,17 @@ It is critical to make sure that your ingress is available and responding correc
 
 # Deploy Cert Manager
 
+Kubernetes 原生的证书管理控制器，可帮助从各种地方请求证书，比如 Let’s Encrypt, HashiCorp Vault, Venafi，可以请求简单的 signing keypair，或自验证证书。
+它会保证请求的证书有效，会在证书失效之前尝试更新。
+
+![cert-manager-high-level-overview](https://cert-manager.io/images/high-level-overview.svg)
+
 We need to install cert-manager to do the work with kubernetes to request a certificate and respond to the challenge to validate it. We can use helm to install cert-manager. This example installed cert-manager into the kube-system namespace from the public helm charts.
 
-```
+```sh
 # Install the cert-manager CRDs. We must do this before installing the Helm
-# chart in the next step for `release-0.9` of cert-manager:
-$ kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/deploy/manifests/00-crds.yaml
+# chart in the next step for `release-0.12` of cert-manager:
+$ kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.12/deploy/manifests/00-crds.yaml
 
 # Create the namespace for cert-manager
 $ kubectl create namespace cert-manager
@@ -160,100 +165,11 @@ $ helm repo update
 $ helm install \
   --name cert-manager \
   --namespace cert-manager \
-  --version v0.9.1 \
+  --version v0.12.0 \
   jetstack/cert-manager
 
-NAME:   cert-manager
-LAST DEPLOYED: Wed Jan  9 13:36:13 2019
-NAMESPACE: cert-manager
-STATUS: DEPLOYED
-
-RESOURCES:
-==> v1beta1/ClusterRoleBinding
-NAME                                 AGE
-cert-manager-webhook-ca-sync         2s
-cert-manager-webhook:auth-delegator  2s
-cert-manager                         2s
-
-==> v1beta1/APIService
-NAME                                  AGE
-v1beta1.admission.certmanager.k8s.io  2s
-
-==> v1alpha1/Certificate
-cert-manager-webhook-webhook-tls  1s
-cert-manager-webhook-ca           1s
-
-==> v1beta1/ValidatingWebhookConfiguration
-cert-manager-webhook  1s
-
-==> v1/ServiceAccount
-NAME                          SECRETS  AGE
-cert-manager-webhook-ca-sync  1        2s
-cert-manager-webhook          1        2s
-cert-manager                  1        2s
-
-==> v1beta1/RoleBinding
-NAME                                                AGE
-cert-manager-webhook:webhook-authentication-reader  2s
-
-==> v1beta1/Deployment
-NAME                  DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
-cert-manager-webhook  1        1        1           0          2s
-cert-manager          1        1        1           0          2s
-
-==> v1/Job
-NAME                          DESIRED  SUCCESSFUL  AGE
-cert-manager-webhook-ca-sync  1        0           2s
-
-==> v1beta1/CronJob
-NAME                          SCHEDULE      SUSPEND  ACTIVE  LAST SCHEDULE  AGE
-cert-manager-webhook-ca-sync  * * */24 * *  False    0       <none>         2s
-
-==> v1beta1/ClusterRole
-NAME                          AGE
-cert-manager-webhook-ca-sync  2s
-cert-manager                  2s
-
-==> v1/ClusterRole
-cert-manager-webhook:webhook-requester  2s
-cert-manager-view                       2s
-cert-manager-edit                       2s
-
-==> v1/Service
-NAME                  TYPE       CLUSTER-IP    EXTERNAL-IP  PORT(S)  AGE
-cert-manager-webhook  ClusterIP  10.3.244.237  <none>       443/TCP  2s
-
-==> v1/ConfigMap
-NAME                          DATA  AGE
-cert-manager-webhook-ca-sync  1     2s
-
-==> v1alpha1/Issuer
-NAME                           AGE
-cert-manager-webhook-ca        1s
-cert-manager-webhook-selfsign  1s
-
-==> v1/Pod(related)
-NAME                                   READY  STATUS             RESTARTS  AGE
-cert-manager-webhook-745b49d445-rnxm2  0/1    ContainerCreating  0         2s
-cert-manager-9cdd9f774-t856z           0/1    ContainerCreating  0         2s
-cert-manager-webhook-ca-sync-ddf4b     0/1    ContainerCreating  0         2s
-
-NOTES:
-cert-manager has been deployed successfully!
-
-In order to begin issuing certificates, you will need to set up a ClusterIssuer
-or Issuer resource (for example, by creating a 'letsencrypt-staging' issuer).
-
-More information on the different types of issuers and how to configure them
-can be found in our documentation:
-
-https://docs.cert-manager.io/en/latest/reference/issuers.html
-
-For information on how to configure cert-manager to automatically provision
-Certificates for Ingress resources, take a look at the `ingress-shim`
-documentation:
-
-https://docs.cert-manager.io/en/latest/reference/ingress-shim.html
+## Upgrade
+$ helm upgrade cert-manager  --namespace cert-manager   --version v0.12.0   jetstack/cert-manager
 ```
 
 Cert-manager uses two different custom resources, also known as [CRD](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)’s, to configure and control how it operates, as well as share status of its operation. These two resources are:
@@ -272,7 +188,7 @@ Cert-manager uses two different custom resources, also known as [CRD](https://ku
 
 > A certificate is the resource that cert-manager uses to expose the state of a request as well as track upcoming expirations.
 
-# Configure Let’s Encrypt Issuer
+# 配置 Let’s Encrypt Issuer
 
 We will set up two issuers for Let’s Encrypt in this example. The Let’s Encrypt production issuer has [very strict rate limits](https://letsencrypt.org/docs/rate-limits/). When you are experimenting and learning, it is very easy to hit those limits, and confuse rate limiting with errors in configuration or operation.
 
@@ -685,3 +601,25 @@ Events:
   Normal  OrderCreated   11m                  cert-manager  Created Order resource "quickstart-example-tls-889745041"
   Normal  OrderComplete  10m                  cert-manager  Order "quickstart-example-tls-889745041" completed successfully
 ```
+
+Using openssl
+
+```
+$ echo | openssl s_client -connect "letsencrypt.org":443 -servername "letsencrypt.org" -verify_hostname "letsencrypt.org" 2>/dev/null | openssl x509 -noout -startdate -enddate
+notBefore=Sep 29 16:33:36 2019 GMT
+notAfter=Dec 28 16:33:36 2019 GMT
+```
+
+Using Sensu/Nagios checks
+
+- [https://github.com/sensu-plugins/sensu-plugins-ssl](https://github.com/sensu-plugins/sensu-plugins-ssl)
+- https://github.com/sensu-plugins/sensu-plugins-http
+
+Using Prometheus and Alertmanager
+
+- [https://www.robustperception.io/get-alerted-before-your-ssl-certificates-expire](https://www.robustperception.io/get-alerted-before-your-ssl-certificates-expire)
+
+Free services
+
+- Let’s Encrypt provides certificate expiration emails if you have configured an email address. [https://letsencrypt.org/docs/expiration-emails/ 2](https://letsencrypt.org/docs/expiration-emails/)
+- [https://certificatemonitor.org/](https://certificatemonitor.org/)

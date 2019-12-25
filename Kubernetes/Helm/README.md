@@ -75,6 +75,10 @@ $ helm inspect values stable/mysql
 # 查看在群集上安装的 Charts 列表
 $ helm list
 
+# 更新某个配置
+$ helm upgrade my-release stable/external-dns
+$ helm upgrade -f panda.yaml happy-panda stable/mariadb
+
 # 删除某个 Charts 的部署
 $ helm del --purge wordpress-test
 
