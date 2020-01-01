@@ -1,5 +1,11 @@
 ![](https://cdn-images-1.medium.com/max/2000/1*VpR3o4r4ek425D6FZApJyQ.png)
 
+# 基于 Docker 的本地搭建
+
+# KinD
+
+我们可以使用 KinD 这样的工具快速搭建简单的本地 K8s 集群。
+
 # 基于 Docker for MAC 的 Kubernetes 本地环境搭建与应用部署
 
 下载最新的 Docker for Mac 或者 Edge 版本，即可以看到内置的 Kubernetes 集群，直接点击安装即可在本地搭建好单节点的 Kubernetes 环境：
@@ -114,16 +120,16 @@ status:
 Docker 同样为我们提供了简单的应用示范，可以直接使用如下的 Docker Compose 配置文件:
 
 ```yml
-version: '3.3'
+version: "3.3"
 
 services:
   web:
     build: web
     image: dockerdemos/lab-web
     volumes:
-      - './web/static:/static'
+      - "./web/static:/static"
     ports:
-      - '80:80'
+      - "80:80"
 
   words:
     build: words
