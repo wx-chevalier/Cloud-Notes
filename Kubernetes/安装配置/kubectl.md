@@ -2,8 +2,6 @@
 
 kubeadm 是集群的安装配置脚手架，kubectl 是集群管理工具，kubelet 是工作节点上的代理 Daemon 服务, 负责与 Master 节点进行通信。kubectl 是我们日常工作中最常见的 Kubernetes 命令，本部分即对 kubectl 的常用操作进行总结。
 
-# 上下文配置
-
 ## 自动补全
 
 ```sh
@@ -17,6 +15,55 @@ complete -F __start_kubectl k
 # ZSH
 source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
 echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # add autocomplete permanently to your zsh shell
+```
+
+# 上下文配置
+
+通过 kubectl 子命令 config 的三元组：集群（set-cluster）、用户（set-credentials）和配置上下文（set-context）实现切换。K8s 中的上下文能够连接用户与集群，如果通过 kubectl 的操作如下：
+
+```sh
+# 创建cluster
+kubectl config set-cluster set-cluster scratch --server=https://5.6.7.8 --insecure-skip-tls-verify
+# 创建user
+kubectl config set-credentials  experimenter --username=exp --password=some-password
+# 创建context
+kubectl config set-context exp-scratch --cluster=scratch --namespace=default --user=experimenter
+# 指定当前使用的context
+kubectl config use-context exp-scratch
+```
+
+我们也可以指明如下的配置文件，通过 `export KUBECONFIG=/path/to/config.yml` 的方式来指明当前的上下文：
+
+```yml
+apiVersion: v1
+kind: Config
+preferences: {}
+
+# Define the cluster
+clusters:
+  - cluster:
+      certificate-authority-data: xx
+      server: "https:/xx:6443"
+    name: "xx"
+
+# Define the user
+users:
+  - name: "xx"
+    user:
+      as-user-extra: {}
+      client-key-data: "xx"
+      token: "xx"
+
+# Define the context: linking a user to a cluster
+contexts:
+  - context:
+      cluster: "0"
+      namespace: "xx"
+      user: "xx"
+    name: "xx"
+
+# Define current context
+current-context: "xx"
 ```
 
 ## 上下文切换
@@ -64,7 +111,7 @@ Context "docker-desktop" modified.
 Active namespace is "default".
 ```
 
-## 运行与管理
+# 运行与管理
 
 `kubectl run` 和 docker run 一样，它能将一个镜像运行起来，我们使用 kubectl run 来将一个 sonarqube 的镜像启动起来。
 
