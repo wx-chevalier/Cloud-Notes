@@ -10,15 +10,123 @@ ConfigMap 供容器使用的典型用法如下：
 - 设置容器启动命令的启动参数（需设置为环境变量）；
 - 以 Volume 的形式挂载为容器内部的文件或目录。
 
-# 快速开始
-
 # 创建 ConfigMap
 
-## 通过 yaml 配置文件方式创建
+## 通过 yaml 配置文件方式创建`
+
+```yml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: example-configmap
+data:
+  # Configuration values can be set as key-value properties
+  database: mongodb
+  database_uri: mongodb://localhost:27017
+
+  # Or set as complete file contents (even JSON!)
+  keys: |
+    image.public.key=771 
+    rsa.public.key=42
+```
+
+`kubectl apply -f config-map.yaml`
 
 ## 通过 kubectl 命令行方式创建
 
 # 使用 ConfigMap
+
+## 挂载为卷使用
+
+```yml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-using-configmap
+
+spec:
+  # Add the ConfigMap as a volume to the Pod
+  volumes:
+    # `name` here must match the name
+    # specified in the volume mount
+    - name: example-configmap-volume
+      # Populate the volume with config map data
+      configMap:
+        # `name` here must match the name
+        # specified in the ConfigMap's YAML
+        name: example-configmap
+
+  containers:
+    - name: container-configmap
+      image: nginx:1.7.9
+      # Mount the volume that contains the configuration data
+      # into your container filesystem
+      volumeMounts:
+        # `name` here must match the name
+        # from the volumes section of this pod
+        - name: example-configmap-volume
+            mountPath: /etc/config
+```
+
+## 作为环境变量使用
+
+```yml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-env-var
+spec:
+  containers:
+    - name: env-var-configmap
+      image: nginx:1.7.9
+      envFrom:
+        - configMapRef:
+            name: example-configmap
+```
+
+# 案例
+
+## 挂载配置文件
+
+我们也可以将文件创建为 ConfigMap，然后将其挂载到容器对应的卷中：
+
+```yml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sherlock-config
+  namespace: default
+data:
+  config.yaml: |
+    namespaces:
+      - default
+    labels:
+      - "app"
+      - "owner"
+```
+
+然后在 Pod 中创建关联的卷，指明文件路径：
+
+```yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-sherlock
+spec:
+  serviceAccountName: kube-sherlock
+  containers:
+    - name: kube-sherlock
+      image: cmendibl3/kube-sherlock:0.1
+      volumeMounts:
+        - name: config-volume
+          mountPath: /app/config.yaml
+          subPath: config.yaml
+  volumes:
+    - name: config-volume
+      configMap:
+        name: sherlock-config
+  restartPolicy: Never
+```
 
 # 链接
 

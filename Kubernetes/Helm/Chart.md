@@ -210,7 +210,7 @@ NOTES:
   kubectl port-forward $POD_NAME 8080:80
 ```
 
-现在 nginx 已经部署到 kubernetes 集群上，本地执行提示中的命令在本地主机上访问到 nginx 实例。
+现在 Nginx 已经部署到 kubernetes 集群上，本地执行提示中的命令在本地主机上访问到 Nginx 实例。
 
 ```sh
 $ export POD_NAME=$(kubectl get pods --namespace default -l "app=eating-hound-mychart" -o jsonpath="{.items[0].metadata.name}")
@@ -220,4 +220,4 @@ $ echo "Visit http://127.0.0.1:8080 to use your application"
 $ kubectl port-forward $POD_NAME 8080:80
 ```
 
-在本地访问 `http://127.0.0.1:8080` 即可访问到 nginx。
+在本地访问 `http://127.0.0.1:8080` 即可访问到 Nginx
