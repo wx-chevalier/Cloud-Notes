@@ -4,7 +4,7 @@ Admission Controller 是一个拦截器，请求通过认证之后，请求被�
 
 > An admission controller is a piece of code that intercepts requests to the Kubernetes API server prior to persistence of the object, but after the request is authenticated and authorized.
 
-简而言之，Kubernetes Admission Controller 是控制和强制使用集群的插件。可以将它们视为拦截（已认证）API 请求的 Gatekeeper，并且可以更改请求对象或完全拒绝该请求。准入控制过程分为两个阶段：首先执行 Mutating 阶段，然后执行 Validating 阶段。因此，Admission Controller 可以充当变异或验证控制器或两者的组合。 例如，LimitRanger Admission Controller 可以使用默认资源请求和限制来扩展 Pod（更改阶段），并验证具有明确设置的资源要求的 Pod 不超过 LimitRange 对象中指定的每个命名空间限制（验证阶段）。
+简而言之，Kubernetes Admission Controller 是控制和强制使用集群的插件。可以将它们视为拦截（已认证）API 请求的 Gatekeeper，并且可以更改请求对象或完全拒绝该请求。准入控制过程分为两个阶段：首先执行 Mutating 阶段，然后执行 Validating 阶段。因此，Admission Controller 可以充当变异或验证控制器或两者的组合。例如，LimitRanger Admission Controller 可以使用默认资源请求和限制来扩展 Pod（更改阶段），并验证具有明确设置的资源要求的 Pod 不超过 LimitRange 对象中指定的每个命名空间限制（验证阶段）。
 
 ![Admission Controller Phases](https://s2.ax1x.com/2020/01/01/lGDzh6.png)
 
@@ -31,7 +31,7 @@ Admission Controller 有着非常丰富的使用场景，譬如 Istio 就是采�
 
 ![收集应用日志的 Sidecar 容器](https://s2.ax1x.com/2020/01/01/lGrgC6.md.png)
 
-Admission webhooks are HTTP callbacks that receive admission requests and do something with them. 用户可以定义两种 webhook，validating admission webhook、mutating admission webhook。一个用于验证，另一个用于修改。 Webhook 回调，接收 API Server 发送的 admissionReview 请求，并返回 admissionResponse。典型的 ValidatingWebhookConfiguration 的资源定义如下：
+Admission webhooks are HTTP callbacks that receive admission requests and do something with them. 用户可以定义两种 webhook，validating admission webhook、mutating admission webhook。一个用于验证，另一个用于修改。Webhook 回调，接收 API Server 发送的 admissionReview 请求，并返回 admissionResponse。典型的 ValidatingWebhookConfiguration 的资源定义如下：
 
 ```yml
 apiVersion: admissionregistration.k8s.io/v1beta1
