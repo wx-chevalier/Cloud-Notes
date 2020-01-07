@@ -17,6 +17,33 @@ source <(kubectl completion zsh)  # setup autocomplete in zsh into the current s
 echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
 
+## 插件
+
+K8s 生态圈为我们提供了非常丰富的插件，这里我们可以使用 krew 作为 K8s 的插件安装工具：
+
+```s
+(
+  set -x; cd "$(mktemp -d)" &&
+  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/download/v0.3.3/krew.{tar.gz,yaml}" &&
+  tar zxvf krew.tar.gz &&
+  KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64" &&
+  "$KREW" install --manifest=krew.yaml --archive=krew.tar.gz &&
+  "$KREW" update
+)
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+```
+
+然后可以通过 krew 来安装插件：
+
+```s
+kubectl krew search                 # show all plugins
+kubectl krew install view-secret    # install a plugin named "view-secret"
+kubectl view-secret                 # use the plugin
+kubectl krew upgrade                # upgrade installed plugins
+kubectl krew uninstall view-secret  # uninstall a plugin
+```
+
 # 上下文配置
 
 通过 kubectl 子命令 config 的三元组：集群（set-cluster）、用户（set-credentials）和配置上下文（set-context）实现切换。K8s 中的上下文能够连接用户与集群，如果通过 kubectl 的操作如下：
