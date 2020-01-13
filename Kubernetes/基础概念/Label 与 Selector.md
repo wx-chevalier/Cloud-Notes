@@ -34,7 +34,7 @@ $ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ## API Object
 
-在 service、replicationcontroller 等 object 中有对 pod 的 label selector，使用方法只能使用等于操作，例如：
+在 service、replicationcontroller 等 object 中有对 Pod 的 label selector，使用方法只能使用等于操作，例如：
 
 ```yml
 selector:

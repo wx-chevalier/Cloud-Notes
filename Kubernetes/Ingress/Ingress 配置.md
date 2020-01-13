@@ -15,7 +15,7 @@ metadata:
     app.kubernetes.io/name: ufc-rancher
     helm.sh/chart: ufc-rancher-0.1.0
     app.kubernetes.io/instance: release-name
-    app.kubernetes.io/version: '1.0'
+    app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Tiller
 spec:
   type: ClusterIP
@@ -48,21 +48,21 @@ metadata:
     app.kubernetes.io/name: ufc-rancher
     helm.sh/chart: ufc-rancher-0.1.0
     app.kubernetes.io/instance: release-name
-    app.kubernetes.io/version: '1.0'
+    app.kubernetes.io/version: "1.0"
     app.kubernetes.io/managed-by: Tiller
   annotations:
     certmanager.k8s.io/issuer: letsencrypt-prod
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/proxy-body-size: '0'
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
 spec:
   tls:
     - hosts:
-        - 'k8s.unionfab.com'
+        - "k8s.unionfab.com"
       secretName: ufc-rancher-tls
   rules:
     # ufc rancher ingress rules
-    - host: 'k8s.unionfab.com'
+    - host: "k8s.unionfab.com"
       http:
         paths:
           - path: /
@@ -71,7 +71,7 @@ spec:
               servicePort: 58080
 ```
 
-这里我们的实例可以参考使用 Ingress 以允许用域名方式访问 Rancher，其 Helm 配置参考 [K8s/Helm](https://github.com/wx-chevalier/Backend-Boilerplates)。
+这里我们的实例可以参考使用 Ingress 以允许用域名方式访问 Rancher，其 Helm 配置参考 [K8s/Helm](https://github.com/BE-Kits/k8s-examples)。
 
 ## 外部域名
 

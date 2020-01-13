@@ -12,7 +12,7 @@ The quickstart example uses three manifests for the sample. The first two are a 
 
 - deployment manifest: [deployment.yaml](https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/docs/tutorials/acme/quick-start/example/deployment.yaml)
 
-```
+```yml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -25,11 +25,11 @@ spec:
         app: kuard
     spec:
       containers:
-      - image: gcr.io/kuar-demo/kuard-amd64:1
-        imagePullPolicy: Always
-        name: kuard
-        ports:
-        - containerPort: 8080
+        - image: gcr.io/kuar-demo/kuard-amd64:1
+          imagePullPolicy: Always
+          name: kuard
+          ports:
+            - containerPort: 8080
 ```
 
 - service manifest: [service.yaml](https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/docs/tutorials/acme/quick-start/example/service.yaml)
