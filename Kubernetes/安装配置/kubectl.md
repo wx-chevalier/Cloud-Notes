@@ -168,9 +168,6 @@ sonarqube-1880671902-s3fdq   1/1       Running   0          6m
 
 # 交互式运行 Pod 中的某个命令
 $ kubectl exec -it sonarqube-1880671902-s3fdq -- /bin/bash
-
-# 暴露某个 Pod 的端口
-$ kubectl port-forward $POD_NAME 8080:80
 ```
 
 `kubectl` 可以用于删除创建好的 Deployment 与 Pod：
@@ -205,6 +202,28 @@ $ kubectl get pods --selector="run=load-balancer-example" --output=wide
 
 # 访问服务
 $ curl http://<public-node-ip>:<node-port>
+```
+
+## 网络访问
+
+```sh
+# 暴露某个 Pod 的端口
+$ kubectl port-forward -n NAMESPACE $POD <local-port>:<pod-port> &
+$ kubectl port-forward $POD_NAME 8080:80
+$ kubectl -n rook-ceph port-forward service/rook-ceph-mgr-dashboard 31631:7000 --address 0.0.0.0
+$ kubectl port-forward -n default deployment/postgres 8432:5432
+
+$ export WEBAPP_POD=$(kubectl get pods -n $NAMESPACE | grep web-app | awk '{print $1;}')
+$ kubectl port-forward -n $NAMESPACE $WEBAPP_POD 8080
+
+$ kubectl proxy --port 8002
+# http://localhost:8002/api/v1/proxy/namespaces/NAMESPACE/services/SERVICE_NAME:SERVICE_PORT/
+
+curl -v -u username:password \
+  --cacert ./ca.pem \
+  --cert ./crt.pem \
+  --key ./key.pem \
+  https://api.CLUSTER_ID.k8s.gigantic.io/api/v1/namespaces/logging/services/elasticsearch:es/proxy/_stats
 ```
 
 # 资源操作
