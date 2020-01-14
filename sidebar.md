@@ -33,6 +33,9 @@
       - [集群组件](/Kubernetes/基础概念/集群组件.md)
     - [存储](/Kubernetes/存储/README.md)
       - [ConfigMap](/Kubernetes/存储/ConfigMap.md)
+      - [Rook](/Kubernetes/存储/Rook/README.md)
+        
+      - [持久卷](/Kubernetes/存储/持久卷.md)
       - [本地存储](/Kubernetes/存储/本地存储.md)
     - 安装配置
       - [Docker 本地搭建](/Kubernetes/安装配置/Docker%20本地搭建.md)
