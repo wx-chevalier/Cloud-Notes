@@ -33,3 +33,144 @@ spec:
 如果在 pod 和 service account 中同时设置了 automountServiceAccountToken , pod 设置中的优先级更高。
 
 # 使用多个 Service Account
+
+每个 namespace 中都有一个默认的叫做 default 的 service account 资源。您可以使用以下命令列出 namespace 下的所有 serviceAccount 资源。
+
+```sh
+$ kubectl get serviceAccounts
+NAME      SECRETS    AGE
+default   1          1d
+```
+
+您可以像这样创建一个 ServiceAccount 对象：
+
+```sh
+$ cat > /tmp/serviceaccount.yaml <<EOF
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-robot
+EOF
+$ kubectl create -f /tmp/serviceaccount.yaml
+serviceaccount "build-robot" created
+```
+
+如果您看到如下的 service account 对象的完整输出信息：
+
+```sh
+$ kubectl get serviceaccounts/build-robot -o yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  creationTimestamp: 2015-06-16T00:12:59Z
+  name: build-robot
+  namespace: default
+  resourceVersion: "272500"
+  selfLink: /api/v1/namespaces/default/serviceaccounts/build-robot
+  uid: 721ab723-13bc-11e5-aec2-42010af0021e
+secrets:
+- name: build-robot-token-bvbk5
+```
+
+然后您将看到有一个 token 已经被自动创建，并被 service account 引用。您可以使用授权插件来 设置 service account 的权限 。设置非默认的 service account，只需要在 pod 的 spec.serviceAccountName 字段中将 name 设置为您想要用的 service account 名字即可。在 pod 创建之初 service account 就必须已经存在，否则创建将被拒绝。您不能更新已创建的 pod 的 service account。您可以清理 service account，如下所示：
+
+```sh
+$ kubectl delete serviceaccount/build-robot
+```
+
+# 手动创建 service account 的 API token
+
+假设我们已经有了一个如上文提到的名为 ”build-robot“ 的 service account，我们手动创建一个新的 secret。
+
+```sh
+$ cat > /tmp/build-robot-secret.yaml <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: build-robot-secret
+  annotations:
+    kubernetes.io/service-account.name: build-robot
+type: kubernetes.io/service-account-token
+EOF
+$ kubectl create -f /tmp/build-robot-secret.yaml
+secret "build-robot-secret" created
+```
+
+现在您可以确认下新创建的 secret 取代了 “build-robot” 这个 service account 原来的 API token。所有已不存在的 service account 的 token 将被 token controller 清理掉。
+
+```sh
+$ kubectl describe secrets/build-robot-secret
+Name:   build-robot-secret
+Namespace:  default
+Labels:   <none>
+Annotations:  kubernetes.io/service-account.name=build-robot,kubernetes.io/service-account.uid=870ef2a5-35cf-11e5-8d06-005056b45392
+
+Type: kubernetes.io/service-account-token
+
+Data
+====
+ca.crt: 1220 bytes
+token: ...
+namespace: 7 bytes
+```
+
+# 为 service account 添加 ImagePullSecret
+
+首先，创建一个 imagePullSecret，详见这里。然后，确认已创建。如：
+
+```sh
+$ kubectl get secrets myregistrykey
+NAME             TYPE                              DATA    AGE
+myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
+```
+
+然后，修改 namespace 中的默认 service account 使用该 secret 作为 imagePullSecret。
+
+```sh
+kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
+```
+
+Vi 交互过程中需要手动编辑：
+
+```sh
+$ kubectl get serviceaccounts default -o yaml > ./sa.yaml
+$ cat sa.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  creationTimestamp: 2015-08-07T22:02:39Z
+  name: default
+  namespace: default
+  resourceVersion: "243024"
+  selfLink: /api/v1/namespaces/default/serviceaccounts/default
+  uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
+secrets:
+- name: default-token-uudge
+$ vi sa.yaml
+[editor session not shown]
+[delete line with key "resourceVersion"]
+[add lines with "imagePullSecret:"]
+$ cat sa.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  creationTimestamp: 2015-08-07T22:02:39Z
+  name: default
+  namespace: default
+  selfLink: /api/v1/namespaces/default/serviceaccounts/default
+  uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
+secrets:
+- name: default-token-uudge
+imagePullSecrets:
+- name: myregistrykey
+$ kubectl replace serviceaccount default -f ./sa.yaml
+serviceaccounts/default
+```
+
+现在，所有当前 namespace 中新创建的 pod 的 spec 中都会增加如下内容：
+
+```yml
+spec:
+  imagePullSecrets:
+    - name: myregistrykey
+```

@@ -35,8 +35,9 @@
       - [ConfigMap](/Kubernetes/存储/ConfigMap.md)
       - [Rook](/Kubernetes/存储/Rook/README.md)
         - [安装配置](/Kubernetes/存储/Rook/安装配置.md)
-      - [持久卷](/Kubernetes/存储/持久卷.md)
-      - [本地存储](/Kubernetes/存储/本地存储.md)
+      - [卷](/Kubernetes/存储/卷/README.md)
+        - [持久卷](/Kubernetes/存储/卷/持久卷.md)
+        - [本地存储](/Kubernetes/存储/卷/本地存储.md)
     - 安装配置
       - [Docker 本地搭建](/Kubernetes/安装配置/Docker%20本地搭建.md)
       - [Minikube](/Kubernetes/安装配置/Minikube.md)
@@ -63,6 +64,9 @@
       - [租户隔离](/Kubernetes/资源调度/租户隔离.md)
       - [调度架构](/Kubernetes/资源调度/调度架构.md)
     - [身份与权限](/Kubernetes/身份与权限/README.md)
+      - [Network Policy](/Kubernetes/身份与权限/Network%20Policy.md)
+      - [RBAC](/Kubernetes/身份与权限/RBAC/README.md)
+        
       - [Service Account](/Kubernetes/身份与权限/Service%20Account.md)
       - [命名空间](/Kubernetes/身份与权限/命名空间.md)
     - [集群监控](/Kubernetes/集群监控/README.md)
