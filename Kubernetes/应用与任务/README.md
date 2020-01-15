@@ -1,6 +1,6 @@
 # K8s 中的应用与任务部署
 
-参考[云原生](https://ngte-be.gitbook.io/i/?q=云原生)一篇中的定义，将云原生的组件映射为 Kubernetes 的原语（即 Kubernetes 里的各种资源对象和概念组合），可以得到如下图：
+参考[云原生](https://ng-tech.icu/Backend-Series/#/?q=云原生)一篇中的定义，将云原生的组件映射为 Kubernetes 的原语（即 Kubernetes 里的各种资源对象和概念组合），可以得到如下图：
 
 ![云原生与 K8s 概念映射](https://i.postimg.cc/0NxdMnYn/image.png)
 
