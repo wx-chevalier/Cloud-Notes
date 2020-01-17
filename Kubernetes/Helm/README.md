@@ -63,6 +63,8 @@ Helm 的常见命令如下：
 # 查看在存储库中可用的所有 Helm Charts
 $ helm search
 
+# 删除并更新源 or https://burdenbear.github.io/kube-charts-mirror/
+$ helm repo remove stable && helm repo add stable https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
 # 更新 Charts 列表以获取最新版本
 $ helm repo update
 
@@ -74,6 +76,12 @@ $ helm inspect values stable/mysql
 
 # 查看在群集上安装的 Charts 列表
 $ helm list
+
+# 调试某个配置
+$ helm install --debug --dry-run ./mychart
+
+# 校验某个配置
+$ docker run -it --rm --name ct --volume $(pwd):/data quay.io/helmpack/chart-testing:v2.3.0 sh -c "ct lint --all --debug --chart-dirs /data/"
 
 # 更新某个配置
 $ helm upgrade my-release stable/external-dns

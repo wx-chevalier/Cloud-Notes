@@ -1,5 +1,7 @@
 # Chart
 
+# 基础结构
+
 我们创建一个名为 mychart 的 Chart，看一看 Chart 的文件结构。
 
 ```sh
@@ -9,7 +11,7 @@ mongodb
 ├── Chart.yaml #Chart本身的版本和配置信息
 ├── charts #依赖的chart
 ├── templates #配置模板目录
-│   ├── NOTES.txt #helm提示信息
+│   ├── NOTES.txt # Helm 提示信息
 │   ├── _helpers.tpl #用于修改kubernetes objcet配置的模板
 │   ├── deployment.yaml #kubernetes Deployment object
 │   └── service.yaml #kubernetes Serivce
@@ -18,7 +20,7 @@ mongodb
 2 directories, 6 files
 ```
 
-# 模板
+## 模板
 
 Templates 目录下是 yaml 文件的模板，遵循 Go template 语法。使用过 Hugo 的静态网站生成工具的人应该对此很熟悉。我们查看下 deployment.yaml 文件的内容。
 
@@ -86,7 +88,7 @@ resources:
 
 以上两个变量值是在 create chart 的时候自动生成的默认值。我们将默认的镜像地址和 tag 改成我们自己的镜像 harbor-001.jimmysong.io/library/nginx:1.9。
 
-# 检查配置和模板是否有效
+## 检查配置和模板是否有效
 
 当使用 kubernetes 部署应用的时候实际上讲 templates 渲染成最终的 kubernetes 能够识别的 yaml 格式。使用 `helm install --dry-run --debug <chart_dir>` 命令来验证 chart 配置。该输出中包含了模板的变量配置与最终渲染的 yaml 文件。
 
@@ -182,7 +184,7 @@ spec:
 
 我们可以看到 Deployment 和 Service 的名字前半截由两个随机的单词组成，最后才是我们在 values.yaml 中配置的值。
 
-# 部署到 kubernetes
+## 部署到 Kubernetes
 
 在 mychart 目录下执行下面的命令将 nginx 部署到 kubernetes 集群上。
 

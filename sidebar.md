@@ -1,6 +1,9 @@
   - [Kubernetes](/Kubernetes/README.md)
     - [Helm](/Kubernetes/Helm/README.md)
-      - [Chart](/Kubernetes/Helm/Chart.md)
+      - Chart
+        - [REAMDE](/Kubernetes/Helm/Chart/REAMDE.md)
+        - [内置对象与函数](/Kubernetes/Helm/Chart/内置对象与函数.md)
+        - [模板语法](/Kubernetes/Helm/Chart/模板语法.md)
       - [依赖管理](/Kubernetes/Helm/依赖管理.md)
       - [私有 Chart 仓库](/Kubernetes/Helm/私有%20Chart%20仓库.md)
     - [Ingress](/Kubernetes/Ingress/README.md)
