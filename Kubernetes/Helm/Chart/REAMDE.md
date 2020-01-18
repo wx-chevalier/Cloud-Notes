@@ -1,7 +1,5 @@
 # Chart
 
-# 基础结构
-
 我们创建一个名为 mychart 的 Chart，看一看 Chart 的文件结构。
 
 ```sh
@@ -13,12 +11,19 @@ mongodb
 ├── templates #配置模板目录
 │   ├── NOTES.txt # Helm 提示信息
 │   ├── _helpers.tpl #用于修改kubernetes objcet配置的模板
-│   ├── deployment.yaml #kubernetes Deployment object
-│   └── service.yaml #kubernetes Serivce
-└── values.yaml #kubernetes object configuration
+│   ├── deployment.yaml #K8s Deployment object
+│   └── service.yaml #K8s Serivce
+└── values.yaml #K8s object configuration
 
 2 directories, 6 files
 ```
+
+- Chart.yaml 文件包含 Chart 的描述。 您可以从模板中访问它。
+- template/ 目录用于模板文件，当 Helm 执行 Chart 时，它将通过模板渲染引擎发送 template/ 目录中的所有文件。然后，它将收集这些模板的结果并将其发送到 Kubernetes。
+- values.yaml 文件对模板也很重要，该文件包含 Chart 的默认值，用户在 Helm 安装或 Helm 升级期间可能会覆盖这些值。
+- charts/ 子目录可能包含其他 Chart（我们称为子 Chart），在本指南的后面，我们将看到模板渲染时它们如何工作。
+
+# 快速开始
 
 ## 模板
 
@@ -90,7 +95,7 @@ resources:
 
 ## 检查配置和模板是否有效
 
-当使用 kubernetes 部署应用的时候实际上讲 templates 渲染成最终的 kubernetes 能够识别的 yaml 格式。使用 `helm install --dry-run --debug <chart_dir>` 命令来验证 chart 配置。该输出中包含了模板的变量配置与最终渲染的 yaml 文件。
+当使用 K8s 部署应用的时候实际上讲 templates 渲染成最终的 K8s 能够识别的 yaml 格式。使用 `helm install --dry-run --debug <chart_dir>` 命令来验证 chart 配置。该输出中包含了模板的变量配置与最终渲染的 yaml 文件。
 
 ```yml
 $ helm install --dry-run --debug mychart
@@ -186,7 +191,7 @@ spec:
 
 ## 部署到 Kubernetes
 
-在 mychart 目录下执行下面的命令将 nginx 部署到 kubernetes 集群上。
+在 mychart 目录下执行下面的命令将 nginx 部署到 K8s 集群上。
 
 ```yml
 helm install .
@@ -212,7 +217,7 @@ NOTES:
   kubectl port-forward $POD_NAME 8080:80
 ```
 
-现在 Nginx 已经部署到 kubernetes 集群上，本地执行提示中的命令在本地主机上访问到 Nginx 实例。
+现在 Nginx 已经部署到 K8s 集群上，本地执行提示中的命令在本地主机上访问到 Nginx 实例。
 
 ```sh
 $ export POD_NAME=$(kubectl get pods --namespace default -l "app=eating-hound-mychart" -o jsonpath="{.items[0].metadata.name}")
@@ -223,3 +228,44 @@ $ kubectl port-forward $POD_NAME 8080:80
 ```
 
 在本地访问 `http://127.0.0.1:8080` 即可访问到 Nginx
+
+# NOTES.txt
+
+在 `chart install` 或 `chart upgrade` 结束时，Helm 可以为用户打印出一大堆有用的信息。这些信息是使用模板高度定制的。要将安装说明添加到 chart，只需创建一个 `templates/NOTES.txt` 文件即可。这个文件是纯文本的，但是它像一个模板一样处理，并且具有所有可用的普通模板函数和对象。我们来创建一个简单的 `NOTES.txt` 文件：
+
+```
+Thank you for installing {{ .Chart.Name }}.
+
+Your release is named {{ .Release.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get {{ .Release.Name }}
+```
+
+现在，如果我们运行 `helm install ./mychart` 我们会在底部看到这条消息：
+
+```
+RESOURCES:
+==> v1/Secret
+NAME                   TYPE      DATA      AGE
+rude-cardinal-secret   Opaque    1         0s
+
+==> v1/ConfigMap
+NAME                      DATA      AGE
+rude-cardinal-configmap   3         0s
+
+
+NOTES:
+Thank you for installing mychart.
+
+Your release is named rude-cardinal.
+
+To learn more about the release, try:
+
+  $ helm status rude-cardinal
+  $ helm get rude-cardinal
+```
+
+使用`NOTES.txt`这种方式是一种很好的方式，可以为用户提供有关如何使用新安装 chart 的详细信息。强烈建议创建一个文件`NOTES.txt`，尽管这不是必需的。
