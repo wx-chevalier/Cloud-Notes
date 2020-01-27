@@ -140,7 +140,7 @@ NAME                       TYPE           CLUSTER-IP     EXTERNAL-IP            
 nginx-ingress-controller   LoadBalancer   10.43.115.59   172.19.157.1,172.19.157.2,172.19.157.3   80:32122/TCP,443:32312/TCP   77m   app=nginx-ingress,component=controller,release=nginx-ingress
 ```
 
-由于我们采用了 ExternalIP 方式对外暴露服务， 所以 nginx-ingress-controller 会在三台节点宿主机上的 暴露 80/443 端口。我们可以在任意节点上进行访问，因为我们还没有在 Kubernetes 集群中创建 Ingress 资源，所以直接对 ExternalIP 的请求被负载到了 nginx-ingress-default-backend 上。nginx-ingress-default-backend 默认提供了两个 URL 进行访问，其中的 /healthz 用作健康检查返回 200，而 / 返回 404 错误。
+由于我们采用了 ExternalIP 方式对外暴露服务，所以 nginx-ingress-controller 会在三台节点宿主机上的 暴露 80/443 端口。我们可以在任意节点上进行访问，因为我们还没有在 Kubernetes 集群中创建 Ingress 资源，所以直接对 ExternalIP 的请求被负载到了 nginx-ingress-default-backend 上。nginx-ingress-default-backend 默认提供了两个 URL 进行访问，其中的 /healthz 用作健康检查返回 200，而 / 返回 404 错误。
 
 ```sh
 $ curl 127.0.0.1/

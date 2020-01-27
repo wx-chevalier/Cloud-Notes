@@ -56,7 +56,7 @@ $ sudo snap install helm --classic
 $ helm init --upgrade
 ```
 
-在缺省配置下， Helm 会利用 "gcr.io/kubernetes-helm/tiller" 镜像在 Kubernetes 集群上安装配置 Tiller；并且利用 "https://kubernetes-charts.storage.googleapis.com" 作为缺省的 stable repository 的地址。由于在国内可能无法访问 "gcr.io", "storage.googleapis.com" 等域名，阿里云容器服务为此提供了镜像站点。请执行如下命令利用阿里云的镜像来配置 Helm：
+在缺省配置下，Helm 会利用 "gcr.io/kubernetes-helm/tiller" 镜像在 Kubernetes 集群上安装配置 Tiller；并且利用 "https://kubernetes-charts.storage.googleapis.com" 作为缺省的 stable repository 的地址。由于在国内可能无法访问 "gcr.io", "storage.googleapis.com" 等域名，阿里云容器服务为此提供了镜像站点。请执行如下命令利用阿里云的镜像来配置 Helm：
 
 ```sh
 $ helm init --upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.5.1 --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
