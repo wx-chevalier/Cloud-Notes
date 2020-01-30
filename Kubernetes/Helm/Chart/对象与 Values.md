@@ -8,7 +8,7 @@
 
 - `Release`：这个对象描述了 release 本身。它里面有几个对象：
 
-  - `Release.Name`：release 名称
+  - `Release.Name`：release 名称，即是 `helm install --name` 命令中指定的名称。
   - `Release.Time`：release 的时间
   - `Release.Namespace`：release 的 namespace（如果清单未覆盖）
   - `Release.Service`：release 服务的名称（始终是 `Tiller`）。
