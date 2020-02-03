@@ -1,6 +1,6 @@
 ![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg) ![](https://parg.co/bDm)
 
-![](https://i.postimg.cc/8kvMhcZL/image.png)
+![封面图](https://i.postimg.cc/8kvMhcZL/image.png)
 
 # 虚拟化与云计算
 
