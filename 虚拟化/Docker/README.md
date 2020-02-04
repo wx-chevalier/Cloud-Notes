@@ -1,5 +1,3 @@
-
-
 # Docker
 
 Docker 是最广泛使用的容器技术，也是大多数人在引用容器时的意思。虽然还有其他开源容器技术（如 CoreOS 的 rkt）和大型公司构建自己的容器引擎（如谷歌的 lmctfy），但 Docker 已成为容器化的行业标准。它仍然建立在 Linux 内核和最近的 Windows 提供的 cgroups 和命名空间之上。
