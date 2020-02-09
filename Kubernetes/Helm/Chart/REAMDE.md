@@ -18,7 +18,7 @@ mongodb
 2 directories, 6 files
 ```
 
-- Chart.yaml 文件包含 Chart 的描述。 您可以从模板中访问它。
+- Chart.yaml 文件包含 Chart 的描述您可以从模板中访问它。
 - template/ 目录用于模板文件，当 Helm 执行 Chart 时，它将通过模板渲染引擎发送 template/ 目录中的所有文件。然后，它将收集这些模板的结果并将其发送到 Kubernetes。
 - values.yaml 文件对模板也很重要，该文件包含 Chart 的默认值，用户在 Helm 安装或 Helm 升级期间可能会覆盖这些值。
 - charts/ 子目录可能包含其他 Chart（我们称为子 Chart），在本指南的后面，我们将看到模板渲染时它们如何工作。

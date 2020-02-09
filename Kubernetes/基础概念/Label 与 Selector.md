@@ -1,6 +1,6 @@
 # Label
 
-元数据围绕应用（Application）的概念进行组织，Kubernetes 不是平台即服务（PaaS），没有或强制执行正式的应用程序概念。 相反，应用程序是非正式的，并使用元数据进行描述。应用程序包含的定义是松散的。一组通用的标签可以让多个工具之间相互操作，用所有工具都能理解的通用方式描述对象。
+元数据围绕应用（Application）的概念进行组织，Kubernetes 不是平台即服务（PaaS），没有或强制执行正式的应用程序概念相反，应用程序是非正式的，并使用元数据进行描述。应用程序包含的定义是松散的。一组通用的标签可以让多个工具之间相互操作，用所有工具都能理解的通用方式描述对象。
 
 Label 是附着到 object 上（例如 Pod）的键值对。可以在创建 object 的时候指定，也可以在 object 创建后随时指定。Labels 的值对系统本身并没有什么含义，只是对用户才有意义。
 
@@ -85,7 +85,7 @@ affinity:
 | :----------------------------- | :------------------------------------------------- | :----------------- | :----- |
 | `app.kubernetes.io/name`       | 应用程序的名称                                     | `mysql`            | 字符串 |
 | `app.kubernetes.io/instance`   | 用于唯一确定应用实例的名称                         | `wordpress-abcxzy` | 字符串 |
-| `app.kubernetes.io/version`    | 应用程序的当前版本（例如，语义版本，修订版哈希等）| `5.7.21`           | 字符串 |
+| `app.kubernetes.io/version`    | 应用程序的当前版本（例如，语义版本，修订版哈希等） | `5.7.21`           | 字符串 |
 | `app.kubernetes.io/component`  | 架构中的组件                                       | `database`         | 字符串 |
 | `app.kubernetes.io/part-of`    | 此级别的更高级别应用程序的名称                     | `wordpress`        | 字符串 |
 | `app.kubernetes.io/managed-by` | 用于管理应用程序的工具                             | `helm`             | 字符串 |

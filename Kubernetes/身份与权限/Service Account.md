@@ -1,6 +1,6 @@
 # Service Account
 
-Service Account 为 Pod 中的进程提供身份信息。当用户访问集群（例如使用 kubectl 命令）时，apiserver 会将您认证为一个特定的 User Account（目前通常是 admin，除非您的系统管理员自定义了集群配置）。Pod 容器中的进程也可以与 apiserver 联系。 当它们在联系 apiserver 的时候，它们会被认证为一个特定的 Service Account（例如 default）。
+Service Account 为 Pod 中的进程提供身份信息。当用户访问集群（例如使用 kubectl 命令）时，apiserver 会将您认证为一个特定的 User Account（目前通常是 admin，除非您的系统管理员自定义了集群配置）。Pod 容器中的进程也可以与 apiserver 联系当它们在联系 apiserver 的时候，它们会被认证为一个特定的 Service Account（例如 default）。
 
 # 使用默认的 Service Account 访问 API server
 
