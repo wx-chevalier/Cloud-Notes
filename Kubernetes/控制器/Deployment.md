@@ -112,7 +112,7 @@ $ kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
 deployment "nginx-deployment" image updated
 ```
 
-我们可以使用 edit 命令来编辑 Deployment，修改 .spec.template.spec.containers[0].image ，将 nginx:1.7.9 改写成 nginx:1.9.1。
+我们可以使用 edit 命令来编辑 Deployment，修改 .spec.template.spec.containers[0].image，将 nginx:1.7.9 改写成 nginx:1.9.1。
 
 ```sh
 $ kubectl edit deployment/nginx-deployment
