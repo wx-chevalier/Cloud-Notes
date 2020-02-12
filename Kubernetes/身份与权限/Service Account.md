@@ -72,7 +72,7 @@ secrets:
 - name: build-robot-token-bvbk5
 ```
 
-然后您将看到有一个 token 已经被自动创建，并被 service account 引用。您可以使用授权插件来 设置 service account 的权限 。设置非默认的 service account，只需要在 pod 的 spec.serviceAccountName 字段中将 name 设置为您想要用的 service account 名字即可。在 pod 创建之初 service account 就必须已经存在，否则创建将被拒绝。您不能更新已创建的 pod 的 service account。您可以清理 service account，如下所示：
+然后您将看到有一个 token 已经被自动创建，并被 service account 引用。您可以使用授权插件来 设置 service account 的权限。设置非默认的 service account，只需要在 pod 的 spec.serviceAccountName 字段中将 name 设置为您想要用的 service account 名字即可。在 pod 创建之初 service account 就必须已经存在，否则创建将被拒绝。您不能更新已创建的 pod 的 service account。您可以清理 service account，如下所示：
 
 ```sh
 $ kubectl delete serviceaccount/build-robot
