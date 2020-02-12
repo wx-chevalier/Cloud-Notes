@@ -210,6 +210,8 @@ $ curl http://<public-node-ip>:<node-port>
 # 暴露某个 Pod 的端口
 $ kubectl port-forward -n NAMESPACE $POD <local-port>:<pod-port> &
 $ kubectl port-forward $POD_NAME 8080:80
+
+# 暴露某个 Service 的端口
 $ kubectl -n rook-ceph port-forward service/rook-ceph-mgr-dashboard 31631:7000 --address 0.0.0.0
 $ kubectl port-forward -n default deployment/postgres 8432:5432
 
@@ -219,7 +221,7 @@ $ kubectl port-forward -n $NAMESPACE $WEBAPP_POD 8080
 $ kubectl proxy --port 8002
 # http://localhost:8002/api/v1/proxy/namespaces/NAMESPACE/services/SERVICE_NAME:SERVICE_PORT/
 
-curl -v -u username:password \
+$ curl -v -u username:password \
   --cacert ./ca.pem \
   --cert ./crt.pem \
   --key ./key.pem \
