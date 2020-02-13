@@ -24,8 +24,8 @@ Kubernetes 最终将对 labels 最终索引和反向索引用来优化查询和 
 
 Label 不是唯一的，很多 object 可能有相同的 label。通过 label selector，客户端／用户可以指定一个 object 集合，通过 label selector 对 object 的集合进行操作。Label selector 有两种类型：
 
-- equality-based ：可以使用=、==、!=操作符，可以使用逗号分隔多个表达式
-- set-based ：可以使用 in、notin、!操作符，另外还可以没有操作符，直接写出某个 label 的 key，表示过滤有某个 key 的 object 而不管该 key 的 value 是何值，! 表示没有该 label 的 object
+- equality-based：可以使用=、==、!=操作符，可以使用逗号分隔多个表达式
+- set-based：可以使用 in、notin、!操作符，另外还可以没有操作符，直接写出某个 label 的 key，表示过滤有某个 key 的 object 而不管该 key 的 value 是何值，! 表示没有该 label 的 object
 
 ```sh
 $ kubectl get pods -l environment=production,tier=frontend
