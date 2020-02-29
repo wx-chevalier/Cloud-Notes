@@ -1,10 +1,10 @@
   - [Kubernetes](/Kubernetes/README.md)
     - [Helm](/Kubernetes/Helm/README.md)
       - [Charts](/Kubernetes/Helm/Charts/README.md)
-        
-      - [使用](/Kubernetes/Helm/使用/README.md)
-        - [依赖管理](/Kubernetes/Helm/使用/依赖管理.md)
-        - [私有 Chart 仓库](/Kubernetes/Helm/使用/私有%20Chart%20仓库.md)
+        - [Chart 文件结构](/Kubernetes/Helm/Charts/Chart%20文件结构.md)
+        - [Hooks](/Kubernetes/Helm/Charts/Hooks.md)
+        - [依赖管理](/Kubernetes/Helm/Charts/依赖管理.md)
+        - [存储库](/Kubernetes/Helm/Charts/存储库.md)
       - 模板
         - [REAMDE](/Kubernetes/Helm/模板/REAMDE.md)
         - [函数与管道](/Kubernetes/Helm/模板/函数与管道.md)
@@ -41,7 +41,8 @@
       - [资源对象](/Kubernetes/基础概念/资源对象.md)
       - [集群组件](/Kubernetes/基础概念/集群组件.md)
     - [存储](/Kubernetes/存储/README.md)
-      - [ConfigMap](/Kubernetes/存储/ConfigMap.md)
+      - [ConfigMap](/Kubernetes/存储/ConfigMap/README.md)
+        
       - [Rook](/Kubernetes/存储/Rook/README.md)
         - [安装配置](/Kubernetes/存储/Rook/安装配置.md)
       - [卷](/Kubernetes/存储/卷/README.md)
