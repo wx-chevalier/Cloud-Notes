@@ -1,109 +1,67 @@
 # 容器技术与资源隔离
 
-Linux cgroups 为一种名为 Linux 容器（LXC）的技术铺平了道路。LXC 实际上是我们今天所知的第一个实现容器的主要实现，利用 cgroup 和命名空间隔离来创建具有独立进程和网络空间的虚拟环境。从某种意义上说，这允许独立和隔离的用户空间。  容器的概念直接来自 LXC。事实上，早期版本的 Docker 直接构建在 LXC 之上。
+容器是一种轻量级的虚拟化技术，它不需要模拟硬件创建虚拟机。在 Linux 系统里面，使用到 Linux kernel 的 CGroups，Namespace(ipc，network，user，pid，mount），capability 等用于隔离运行环境和资源限制的技术。容器技术早就出现。例如 Solaris Zones 和 BSD jails 就是非 Linux 操作系统上的容器，而用于 Linux 的容器技术也有很多如 Linux-Vserver、OpenVZ 和 FreeVPS。虽然这些技术都已经成熟，但是这些解决方案还没有将它们的容器支持集成到主流 Linux 内核。总的来说，容器不等同于 Docker，容器更不是虚拟机。
 
-简单的讲就是，Linux namespace 允许用户在独立进程之间隔离 CPU 等资源。进程的访问权限及可见性仅限于其所在的 Namespaces。因此，用户无需担心在一个 Namespace 内运行的进程与在另一个 Namespace 内运行的进程冲突。甚至可以同一台机器上的不同容器中运行具有相同 PID 的进程。同样的，两个不同容器中的应用程序可以使用相同的端口。
+![Docker & Linux Internals](https://i.postimg.cc/d3x9b3NT/image.png)
 
-![](https://tva1.sinaimg.cn/large/007rAy9hgy1g2zdhwngx6j30u00m0wgg.jpg)
+Linux CGroups 为一种名为 Linux 容器（LXC）的技术铺平了道路。LXC 实际上是我们今天所知的第一个实现容器的主要实现，利用 cgroup 和命名空间隔离来创建具有独立进程和网络空间的虚拟环境。从某种意义上说，这允许独立和隔离的用户空间。  容器的概念直接来自 LXC。事实上，早期版本的 Docker 直接构建在 LXC 之上。Docker 最初目标是做一个特殊的 LXC 的开源系统，最后慢慢演变为它自己的一套容器运行时环境。Docker 基于 Linux kernel 的 CGroups，Namespace，UnionFileSystem 等技术封装成一种自定义的容器格式，用于提供一整套虚拟运行环境。毫无疑问，近些年来 Docker 已经成为了容器技术的代名词。
 
-与虚拟机相比，容器更轻量且速度更快，因为它利用了 Linux 底层操作系统在隔离的环境中运行。虚拟机的 hypervisor 创建了一个非常牢固的边界，以防止应用程序突破它，而容器的边界不那么强大。另一个区别是，由于 Namespace 和 Cgroups 功能仅在 Linux 上可用，因此容器无法在其他操作系统上运行；Docker 实际上使用了一个技巧，并在非 Linux 操作系统上安装 Linux 虚拟机，然后在虚拟机内运行容器。
+![Docker 与虚拟机](https://i.postimg.cc/BZkHfrQD/image.png)
 
-虽然大多数 IT 行业正在采用基于容器的基础架构（云原生解决方案），但必须了解该技术的局限性。传统容器（如 Docker，Linux Containers（LXC）和 Rocket（rkt））并不是真正的沙箱，因为它们共享主机操作系统内核。它们具有资源效率，但攻击面和破坏的潜在影响仍然很大，特别是在多租户云环境中，共同定位属于不同客户的容器。
+# After `docker run`
 
-当主机操作系统为每个容器创建虚拟化用户空间时，问题的根源是容器之间的弱分离。一直致力于设计真正的沙盒容器的研究和开发。大多数解决方案重新构建容器之间的边界以加强隔离。譬如来自 IBM，Google，Amazon 和 OpenStack 的四个独特项目，这些项目使用不同的技术来实现相同的目标，为容器创建更强的隔离。
+通过下面命令运行一个 debian 容器，attach 到一个本机的命令行并运行/bin/bash。
 
-- IBM Nabla 在 Unikernels 之上构建容器
-- Google gVisor 创建了一个用于运行容器的专用客户机内核
-- Amazon Firecracker 是一个用于沙盒应用程序的极轻量级管理程序
-- OpenStack 将容器放置在针对容器编排平台优化的专用 VM 中
+```undefined
+docker run -i -t debian /bin/bash
+```
 
-LXC
-一种操作系统级虚拟化方法，在执行时不用重复加载内核, 且其内核与宿主共享，允许其他一些沙盒进程运行在一块相对独立的空间，并且能够方便的控制他们的资源调度。
+这个命令背后都做了什么？
 
-namespace
-通过 namespace 实现容器间的隔离性。容器内的应用只能在自己的命名空间中运行而且不会访问到命名空间之外。
+- 1.如果本机没有 debian 镜像，则会从你配置的 Registry 里面拉取一个 debian 的 latest 版本的镜像，跟你运行了`docker pull debian`效果一样。
+- 2.创建容器。跟运行`docker create`一样。
+- 3.给容器分配一个读写文件系统作为该容器的`final layer`，容器可以在它的文件系统创建和修改文件。
+- 4.Docker 为容器创建了一套网络接口，给容器分配一个 ip。默认情况下，容器可以通过默认网络连通到外部网络。
+- 5.Docker 启动容器并执行 `/bin/bash`。因为启动时指定了`-i -t`参数，容器是以交互模式运行且 attach 到本地终端，我们可以在终端上输入命令并看到输出。
+- 6.运行 exit 可以退出容器，但是此时容器并没有被删除，我们可以再次运行它或者删除它。
 
-cgroups（Control Groups)
-用来管理群组。使应用隔离运行的关键是让它们只使用你想要的资源。这样可以确保在机器上运行的容器都是良民(good multi-tenant citizens)。群组控制允许 Docker 分享或者限制容器使用硬件资源。
+可以发现，容器的内核版本是跟宿主机一样的，不同的是容器的主机名是独立的，它默认用容器 ID 做主机名。我们运行`ps -ef`可以发现容器进程是隔离的，容器里面看不到宿主机的进程，而且它自己有 PID 为 1 的进程。此外，网络也是隔离的，它有独立于宿主机的 IP。文件系统也是隔离的，容器有自己的系统和软件目录，修改容器内的文件并不影响宿主机对应目录的文件。
 
-AUFS (AnotherUnionFS)
-一种 Union FS, 支持将不同目录挂载到同一个虚拟文件系统下的文件系统。
+```ruby
+root@stretch:/home/vagrant# uname -r
+4.9.0-6-amd64
+root@stretch:/home/vagrant# docker run -it --name demo alpine /bin/ash
+/ # uname -r   ## 容器内
+4.9.0-6-amd64
 
-容器运行时的只读模板。每一个镜像由一系列的层 (layers) 组成，层是由 Dockerfile 指定。copy on write
-写时复制。容器是由镜像所创建，会根据多层文件系统构建一个镜像栈，只有栈的最顶层是读写层。如果发生对只读层的写操作时会将该文件复制到读写层，并隐藏只读层的文件。
+/ # ps -ef
+PID   USER     TIME   COMMAND
+    1 root       0:00 /bin/ash
+    7 root       0:00 ps -ef
 
-联合文件系统（UnionFS）是一种分层、轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下(unite several directories into asingle virtual filesystem)。
-联合文件系统是 Docker 镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像），可以制作各种具体的应用镜像。
-另外，不同 Docker 容器就可以共享一些基础的文件系统层，同时再加上自己独有的改动层，大大提高了存储的效率。
-Docker 中使用的 AUFS（AnotherUnionFS）就是一种联合文件系统。AUFS 支持为每一个成员目录（类似 Git 的分支）设定只读（readonly）、读写（readwrite）和写出（whiteout-able）权限, 同时 AUFS 里有一个类似分层的概念, 对只读权限的分支可以逻辑上进行增量地修改(不影响只读部分的)。
-Docker 目前支持的联合文件系统种类包括 AUFS, btrfs, vfs 和 DeviceMapper
+/ # ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+6: eth0@if7: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
+       valid_lft forever preferred_lft forever
+```
 
-要想实现网络通信，机器至少需要一个网络接口(物理接口或虚拟接口)与外界相通，并可以收发数据包；另外，如果不同子网之间要进行通信，则需要额外的路由机制。Docker 的网络接口默认都是虚拟接口。虚拟接口的最大优势就是转发效率极高！之所以会这样，那是因为 Linux 通过在内核中进行数据复制来实现虚拟接口间的数据转发，即直接复制发送接口的发送缓存中的数据包到接收接口的接收缓存中，而无需通过外部物理网络设备进行交换。对于本地系统和容器内系统来看，虚拟接口和一个正常的以太网卡相比并无区别，只是虚拟接口的速度要快得多。
+这些隔离机制并不是 Docker 新开发的技术，而是依托 Linux kernel 以及一些已有的技术实现的，主要包括：
 
-2.5.2 网络创建过程
-创建一对虚拟接口，分别放到宿主机和容器的命名空间中；
-宿主机一端的虚拟接口连接到默认的 docker0 网桥或指定网桥上，并具有一个以 veth 开头的唯一的名字;
-容器一端的虚拟接口将被放到容器中，并修改名称为 eth0，且这个接口只对该容器的命名空间可见；4. 从网桥可用地址段中获取一个空闲的地址分配给容器的 eth0(如 172.17.0.2/16)，并配置默认路由网关为 docker0 网卡的内部接口 docker0 的 IP 地址(如 172.17.42.1/16)；
-完成以上这些，容器就可以使用自身可见的 eth0 虚拟网卡来连接其他容器和访问外部网络。另外，可以在容器创建启动时通过--net 参数来指定容器的网络配置
+- 隔离性，Linux Namespaces(Linux2.6.24 后引入)：命名空间用于进程(PID)、网络(NET)、挂载点(MNT)、UTS、IPC 等隔离。容器内的应用只能在自己的命名空间中运行而且不会访问到命名空间之外。
 
-# Cgroup
+- 控制组，Linux Control Groups(CGroups)：用于限制容器使用的资源，包括内存，CPU 等。使应用隔离运行的关键是让它们只使用你想要的资源。这样可以确保在机器上运行的容器都是良民(good multi-tenant citizens)。群组控制允许 Docker 分享或者限制容器使用硬件资源。
 
-# Network
+- 便携性，Union File Systems：UnionFS 把多个目录结合成一个目录，对外使用，最上层目录为读写层(通常只有 1 个)，下面可以有一个或多个只读层，见容器和镜像分层图。Docker 支持 OverlayFS，AUFS、DeviceMapper、btrfs 等联合文件系统，支持将不同目录挂载到同一个虚拟文件系统下的文件系统。
 
-Docker 通过 libnetwork 实现了 CNM 网络模型。libnetwork 设计 doc 中对 CNM 模型的简单诠释如下：
-
-![image](https://user-images.githubusercontent.com/5803001/45594781-e6211a80-b9d2-11e8-8252-3d4f52277a17.png)
-
-CNM 模型有三个组件：
-
-Sandbox(沙盒)：每个沙盒包含一个容器网络栈(network stack)的配置，配置包括：容器的网口、路由表和 DNS 设置等。
-Endpoint(端点)：通过 Endpoint，沙盒可以被加入到一个 Network 里。
-Network(网络)：一组能相互直接通信的 Endpoints。
-
-CNM 模型在 Linux 上的参考实现技术，比如：沙盒的实现可以是一个 Linux Network Namespace；Endpoint 可以是一对 VETH；Network 则可以用 Linux Bridge 或 Vxlan 实
-
-veth 对只是不同网络命名空间通信的一种解决方案，还有其他方案。
-
-Linux Bridge，即 Linux 网桥设备，是 Linux 提供的一种虚拟网络设备之一。其工作方式非常类似于物理的网络交换机设备。Linux Bridge 可以工作在二
-
-层，也可以工作在三层，默认工作在二层。工作在二层时，可以在同一网络的不同主机间转发以太网报文；一旦你给一个 Linux Bridge 分配了 IP 地址，
-
-也就开启了该 Bridge 的三层工作模式。在 Linux 下，你可以用 iproute2 工具包或 brctl 命令对 Linux bridge 进行管理。
-
-VETH(Virtual Ethernet )是 Linux 提供的另外一种特殊的网络设备，中文称为虚拟网卡接口。它总是成对出现，要创建就创建一个 pair。一个 Pair 中的
-
-veth 就像一个网络线缆的两个端点，数据从一个端点进入，必然从另外一个端点流出。每个 veth 都可以被赋予 IP 地址，并参与三层网络路由过程。Network namespace，网络名字空间，允许你在 Linux 创建相互隔离的网络视图，每个网络名字空间都有独立的网络配置，比如：网络设备、路由表
-
-等。新建的网络名字空间与主机默认网络名字空间之间是隔离的。我们平时默认操作的是主机的默认网络名字空间。
-
-![image](https://user-images.githubusercontent.com/5803001/45594763-b5d97c00-b9d2-11e8-9001-377d8957d488.png)
-
-# 链接
-
-- [ ] https://jiajially.gitbooks.io/dockerguide/content/dockerCoreNS.html 提取其中的命令与原理解析
-
-# 容器技术
-
-**Machine-level virtualization**, such as [KVM](https://www.linux-kvm.org/) and [Xen](https://www.xenproject.org/), exposes virtualized hardware to a guest kernel via a Virtual Machine Monitor (VMM). This virtualized hardware is generally enlightened (paravirtualized) and additional mechanisms can be used to improve the visibility between the guest and host (e.g. balloon drivers, paravirtualized spinlocks). Running containers in distinct virtual machines can provide great isolation, compatibility and performance (though nested virtualization may bring challenges in this area), but for containers it often requires additional proxies and agents, and may require a larger resource footprint and slower start-up times.
-
-[![Machine-level virtualization](https://github.com/google/gvisor/raw/master/g3doc/Machine-Virtualization.png)](https://github.com/google/gvisor/blob/master/g3doc/Machine-Virtualization.png)
-
-**Rule-based execution**, such as [seccomp](https://www.kernel.org/doc/Documentation/prctl/seccomp_filter.txt), [SELinux](https://selinuxproject.org/) and [AppArmor](https://wiki.ubuntu.com/AppArmor), allows the specification of a fine-grained security policy for an application or container. These schemes typically rely on hooks implemented inside the host kernel to enforce the rules. If the surface can be made small enough (i.e. a sufficiently complete policy defined), then this is an excellent way to sandbox applications and maintain native performance. However, in practice it can be extremely difficult (if not impossible) to reliably define a policy for arbitrary, previously unknown applications, making this approach challenging to apply universally.
-
-[![Rule-based execution](https://github.com/google/gvisor/raw/master/g3doc/Rule-Based-Execution.png)](https://github.com/google/gvisor/blob/master/g3doc/Rule-Based-Execution.png)
-
-Rule-based execution is often combined with additional layers for defense-in-depth.
-
-**gVisor** provides a third isolation mechanism, distinct from those mentioned above.
-
-gVisor intercepts application system calls and acts as the guest kernel, without the need for translation through virtualized hardware. gVisor may be thought of as either a merged guest kernel and VMM, or as seccomp on steroids. This architecture allows it to provide a flexible resource footprint (i.e. one based on threads and memory mappings, not fixed guest physical resources) while also lowering the fixed costs of virtualization. However, this comes at the price of reduced application compatibility and higher per-system call overhead.
-
-[![gVisor](https://github.com/google/gvisor/raw/master/g3doc/Layers.png)](https://github.com/google/gvisor/blob/master/g3doc/Layers.png)
-
-On top of this, gVisor employs rule-based execution to provide defense-in-depth (details below).
-
-gVisor's approach is similar to [User Mode Linux (UML)](http://user-mode-linux.sourceforge.net/), although UML virtualizes hardware internally and thus provides a fixed resource footprint.
+- Container Format: Docker Engine 组合 Namespaces，CGroups 以及 UnionFS 包装为一个容器格式，默认格式为 libcontainer，后续可能会加入 BSD Jails 或 Solaris Zones 容器格式的支持。
 
 # 链接
 
 - https://unit42.paloaltonetworks.com/making-containers-more-isolated-an-overview-of-sandboxed-container-technologies
+
+- https://jiajially.gitbooks.io/dockerguide/content/dockerCoreNS.html 提取其中的命令与原理解析
