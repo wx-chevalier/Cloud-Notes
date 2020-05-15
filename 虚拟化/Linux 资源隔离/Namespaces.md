@@ -122,4 +122,80 @@ Docker 里面网络模式分为 bridge，host，overlay 等几种模式，默认
 
 # USER Namespace
 
+user namespace 用于隔离用户和组信息，在不同的 namespace 中用户可以有相同的 UID 和 GID，它们之间互相不影响。父子 namespace 之间可以进行用户映射，如父 namespace(宿主机)的普通用户映射到子 namespace(容器)的 root 用户，以减少子 namespace 的 root 用户操作父 namespace 的风险。user namespace 功能虽然在很早就出现了，但是直到 Linux kernel 3.8 之后这个功能才趋于完善。
+
+创建新的 user namespace 之后第一步就是设置好 user 和 group 的映射关系。这个映射通过设置 `/proc/PID/uid_map(gid_map)` 实现，格式如下，ID-inside-ns 是容器内的 uid/gid，而 ID-outside-ns 则是容器外映射的真实 uid/gid。比如 0 1000 1 表示将真实的 uid=1000 映射为容器内的 uid=0，length 为映射的范围。
+
+```s
+ID-inside-ns   ID-outside-ns   length
+```
+
+不是所有的进程都能随便修改映射文件的，必须同时具备如下条件：
+
+- 修改映射文件的进程必须有 PID 进程所在 user namespace 的 CAP_SETUID/CAP_SETGID 权限。
+
+- 修改映射文件的进程必须是跟 PID 在同一个 user namespace 或者 PID 的父 namespace。
+
+- 映射文件 uid_map 和 gid_map 只能写入一次，再次写入会报错。
+
+Docker1.10 之后的版本可以通过在 docker daemon 启动时加上 `--userns-remap=[USERNAME]` 来实现 USER Namespace 的隔离。我们指定了 username=test 启动 dockerd，查看 subuid 文件可以发现 test 映射的 uid 范围是 165536 到 165536+65536= 231072，而且在 docker 目录下面对应 test 有一个独立的目录 165536.165536 存在。
+
+```s
+root@host:/home/vagrant# cat /etc/subuid
+vagrant:100000:65536
+test:165536:65536
+
+root@host:/home/vagrant# ls /var/lib/docker/165536.165536/
+builder/  containerd/  containers/  image/  network/  ...
+```
+
+运行 `docker images -a` 等命令可以发现在启用 user namespace 之前的镜像都看不到了。此时只能看到在新的 user namespace 里面创建的 docker 镜像和容器。而此时我们创建一个测试容器，可以在容器外看到容器进程的 uid_map 已经设置为 ssj，这样容器中的 root 用户映射到宿主机就是 test 这个用户了，此时如果要删除我们挂载的/bin 目录中的文件，会提示没有权限，增强了安全性。
+
+```s
+### dockerd 启动时加了 --userns-remap=test
+root@host:/home/vagrant# docker run -it -v /bin:/host/bin --name demo alpine /bin/ash
+/ # rm /host/bin/which
+rm: remove '/host/bin/which'? y
+rm: can't remove '/host/bin/which': Permission denied
+
+### 宿主机查看容器进程uid_map文件
+root@host:/home/vagrant# CPID=`ps -ef|grep '\/bin\/ash'|awk '{printf $2}'`
+root@host:/home/vagrant# cat /proc/$CPID/uid_map
+         0     165536      65536
+```
+
 # 其他 Namespace
+
+UTS namespace 用于隔离主机名等。可以看到在新的 uts namespace 修改主机名并不影响原 namespace 的主机名。
+
+```s
+root@host:/home/vagrant# unshare --uts --fork bash
+root@host:/home/vagrant# hostname
+host
+root@host:/home/vagrant# hostname modified
+root@host:/home/vagrant# hostname
+modified
+root@host:/home/vagrant# exit
+root@host:/home/vagrant# hostname
+host
+```
+
+IPC Namespace 用于隔离 IPC 消息队列等。可以看到，新老 ipc namespace 的消息队列互不影响。
+
+```s
+root@host:/home/vagrant# ipcmk -Q
+Message queue id: 0
+root@host:/home/vagrant# ipcs -q
+
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages
+0x26c3371c 0          root       644        0            0
+
+root@host:/home/vagrant# unshare --ipc --fork bash
+root@host:/home/vagrant# ipcs -q
+
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages
+```
+
+CGROUP Namespace 是 Linux4.6 以后才支持的新 namespace。容器技术使用 namespace 和 cgroup 实现环境隔离和资源限制，但是对于 cgroup 本身并没有隔离。没有 cgroup namespace 前，容器中一旦挂载 cgroup 文件系统，便可以修改整全局的 cgroup 配置。有了 cgroup namespace 后，每个 namespace 中的进程都有自己的 cgroup 文件系统视图，增强了安全性，同时也让容器迁移更加方便。
