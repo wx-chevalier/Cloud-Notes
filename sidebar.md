@@ -114,7 +114,7 @@
       - [Python](/虚拟化/Focker/Python.md)
     - [Linux 资源隔离](/虚拟化/Linux%20资源隔离/README.md)
       - [AUFS](/虚拟化/Linux%20资源隔离/AUFS.md)
-      - [CGroups](/虚拟化/Linux%20资源隔离/CGroups.md)
+      - [Cgroups](/虚拟化/Linux%20资源隔离/Cgroups.md)
       - [LXC](/虚拟化/Linux%20资源隔离/LXC.md)
       - [Namespaces](/虚拟化/Linux%20资源隔离/Namespaces.md)
       - [虚拟内核](/虚拟化/Linux%20资源隔离/虚拟内核.md)
