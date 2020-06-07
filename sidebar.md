@@ -23,6 +23,7 @@
       - [案例：Pod 创建与访问](/Kubernetes/Pod/案例：Pod%20创建与访问.md)
     - [SideCar](/Kubernetes/SideCar/README.md)
       - [Adimission Controller](/Kubernetes/SideCar/Adimission%20Controller.md)
+    - [为何使用 K8s](/Kubernetes/为何使用%20K8s.md)
     - [典型案例](/Kubernetes/典型案例/README.md)
       - [Caddy](/Kubernetes/典型案例/Caddy.md)
       - [DokuWiki](/Kubernetes/典型案例/DokuWiki.md)
