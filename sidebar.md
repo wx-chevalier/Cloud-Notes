@@ -5,6 +5,9 @@
         - [Hooks](/Kubernetes/Helm/Charts/Hooks.md)
         - [依赖管理](/Kubernetes/Helm/Charts/依赖管理.md)
         - [存储库](/Kubernetes/Helm/Charts/存储库.md)
+      - 基础
+        - [命令](/Kubernetes/Helm/基础/命令.md)
+        - [组件](/Kubernetes/Helm/基础/组件.md)
       - 模板
         - [REAMDE](/Kubernetes/Helm/模板/REAMDE.md)
         - [函数与管道](/Kubernetes/Helm/模板/函数与管道.md)
