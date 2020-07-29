@@ -19,7 +19,7 @@ Helm 保留使用 charts / 和 templates / 目录以及上面列出的文件名�
 
 ## Chart.yaml 文件
 
-Chart.yaml 文件是 chart 所必需的。它包含以下字段：
+Chart.yaml 文件是 Chart 所必需的。它包含以下字段：
 
 ```yml
 apiVersion: The chart API version, always "v1" (required)

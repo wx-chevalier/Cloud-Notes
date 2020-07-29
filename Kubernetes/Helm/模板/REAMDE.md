@@ -58,7 +58,7 @@ spec:
             path: /
             port: {{ .Values.service.internalPort }}
         resources:
-{{ toyaml .Values.resources | indent 12 }}
+{{ toYaml .Values.resources | indent 12 }}
 ```
 
 这是该应用的 Deployment 的 yaml 配置文件，其中的双大括号包扩起来的部分是 Go template，其中的 Values 是在 values.yaml 文件中定义的：
