@@ -235,3 +235,7 @@ nginx-ingress  0s
 NAME           AGE
 nginx-ingress  0s
 ```
+
+# 滚动升级
+
+> https://mp.weixin.qq.com/s/JX8Sw828e0Gv8ndYn3KXvQ 在Kubernetes中部署网站的综合指南 Todos
