@@ -96,10 +96,6 @@
   - [云计算](/云计算/README.md)
     - [OAM](/云计算/OAM/README.md)
       - [协议规范](/云计算/OAM/协议规范.md)
-    - [Serverless](/云计算/Serverless/README.md)
-      - [函数模式](/云计算/Serverless/函数模式.md)
-      - [设计模式](/云计算/Serverless/设计模式.md)
-      - [阿里云](/云计算/Serverless/阿里云.md)
     - [云上安全](/云计算/云上安全/README.md)
       
   - [虚拟化](/虚拟化/README.md)
