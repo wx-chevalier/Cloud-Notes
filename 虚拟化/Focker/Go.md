@@ -21,6 +21,6 @@
 
 # Namespaces basics
 
-# 链接
+# TBD
 
 - https://unixism.net/2020/06/containers-the-hard-way-gocker-a-mini-docker-written-in-go/

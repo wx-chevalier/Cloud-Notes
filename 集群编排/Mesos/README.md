@@ -43,6 +43,6 @@ Slave 是运行在物理或虚拟服务器上的 Mesos 守护进程，是 Mesos 
 
 分配策略有助于 Mesos Master 判断是否应该把当前可用资源提供给特定的 Framework，以及应该提供多少资源。关于 Mesos 中使用资源分配以及可插拔的分配模块，实现非常细粒度的资源共享，会单独写一篇文章。言归正传，Mesos 实现了公平共享和严格优先级(这两个概念我会在资源分配那篇讲)分配模块，确保大部分用例的最佳资源共享。已经实现的新分配模块可以处理大部分之外的用例。
 
-# 链接
+# TBD
 
 - [mesos-docker-tutorial-how-to-build-your-own-framework](https://www.voxxed.com/blog/2014/12/mesos-docker-tutorial-how-to-build-your-own-framework/)

@@ -28,6 +28,6 @@ K8s 与 Docker 最典型而直接的差异，即 Docker 中是以容器为最小
 
 虽然您可以在单个 Pod 中托管多层应用程序（例如 WordPress），但建议的方法是为每个层使用单独的 Pod。这样做的原因很简单：您可以独立地扩展层并在群集节点之间分布它们。
 
-# 链接
+# TBD
 
 - https://mp.weixin.qq.com/s/Vrgff_qfKWPFmRPb_LVMmQ

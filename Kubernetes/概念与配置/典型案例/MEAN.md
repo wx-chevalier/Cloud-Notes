@@ -10,6 +10,6 @@ MEAN 是用来构建网站和 web 应用的免费开源的 JavaScript 软件栈�
 
 ```
 
-# 链接
+# TBD
 
 - https://jimmysong.io/kubernetes-handbook/practice/helm.html

@@ -187,6 +187,6 @@ run  var
 
 容器运行时的只读模板。每一个镜像由一系列的层 (layers) 组成，层是由 Dockerfile 指定。copy on write 写时复制。容器是由镜像所创建，会根据多层文件系统构建一个镜像栈，只有栈的最顶层是读写层。如果发生对只读层的写操作时会将该文件复制到读写层，并隐藏只读层的文件。
 
-# 链接
+# TBD
 
 - https://jvns.ca/blog/2019/11/18/how-containers-work--overlayfs/ How containers work: overlayfs

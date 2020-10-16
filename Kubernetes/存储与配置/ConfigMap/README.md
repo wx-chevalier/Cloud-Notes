@@ -128,7 +128,7 @@ spec:
   restartPolicy: Never
 ```
 
-# 链接
+# TBD
 
 - https://learning.oreilly.com/library/view/kubernetes-for-developers/9781788834759/961e9251-74a4-4e47-8a48-9c02f3500bbb.xhtml
 - https://blog.csdn.net/liukuan73/article/details/79492374

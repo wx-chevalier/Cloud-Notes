@@ -40,6 +40,6 @@ Kubernetes 是目前世界范围内关注度最高的开源项目，它是一个
 
 [![NGTE Books](https://s2.ax1x.com/2020/01/18/19uXtI.png)](https://ng-tech.icu/books/)
 
-## 链接
+## TBD
 
 - [2018-kubernetes-tutorial #Series#](https://github.com/KeKe-Li/kubernetes-tutorial): Running Kubernetes cluster Locally tutorial.

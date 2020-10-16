@@ -496,6 +496,6 @@ alias kiali="kubectl --namespace istio-system port-forward $KIALI_POD 20001:2000
 
 这样，如果需要打开 Jaeger，只需要运行 jaeger 就可以获得 Pod 名称，创建端口转发并打开浏览器。如果你在集群中运行了其他什么需要频繁访问的服务，也可以用类似方式来设置别名。
 
-# 链接
+# TBD
 
 - https://blog.csdn.net/xingwangc2014/article/details/51204224

@@ -10,6 +10,6 @@ Kubernetes Service 定义了这样一种抽象：一个 Pod 的逻辑分组及�
 
 譬如，有个叫做 my-service 的 Service，他对应的 kubernetes namespace 为 my-ns，那么会有他对应的 dns 记录，叫做 my-service.my-ns。那么在 my-ns 的 namespace 中的 Pod 都可以对 my-service 做 name 解析来轻松找到这个 Service。在其他 namespace 中的 pod 解析 my-service.my-ns 来找到他。解析出来的结果是这个 Service 对应的 Cluster IP。
 
-# 链接
+# TBD
 
 - https://parg.co/kXe

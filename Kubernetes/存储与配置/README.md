@@ -81,6 +81,6 @@ Kubernetes 中的 PV 提供三种不同的访问模式，分别是 `ReadWriteOnc
 
 Kubernetes 集群中包含了很多的 PV 资源，而 PV 资源有两种供应的方式，一种是静态的，另一种是动态的，静态存储供应要求集群的管理员预先创建一定数量的 PV，然后使用者通过 PVC 的方式对 PV 资源的使用进行声明和申请；但是当系统管理员创建的 PV 对象不能满足使用者的需求时，就会进入动态存储供应的逻辑，供应的方式是基于集群中的 StorageClass 对象，当然这种动态供应的方式也可以通过配置进行关闭。
 
-# 链接
+# TBD
 
 - https://jimmysong.io/kubernetes-handbook/concepts/storage.html
