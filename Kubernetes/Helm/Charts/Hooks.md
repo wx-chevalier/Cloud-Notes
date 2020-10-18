@@ -81,7 +81,7 @@ spec:
     "helm.sh/hook-weight": "5"
 ```
 
-hook 权重可以是正数或负数，但必须表示为字符串。当 Tiller 开始执行一个特定类型的 hook (例： `pre-install` hooks `post-install` hooks, 等等) 执行周期时，它会按升序对这些 hook 进行排序。
+hook 权重可以是正数或负数，但必须表示为字符串。当 Tiller 开始执行一个特定类型的 hook (例：`pre-install` hooks `post-install` hooks, 等等) 执行周期时，它会按升序对这些 hook 进行排序。
 
 还可以定义确定何时删除相应的 hook 资源的策略。hook 删除策略使用以下注释来定义：
 

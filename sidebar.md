@@ -25,12 +25,13 @@
       - [卷](/Kubernetes/存储与配置/卷/README.md)
         - [持久卷](/Kubernetes/存储与配置/卷/持久卷.md)
         - [本地存储](/Kubernetes/存储与配置/卷/本地存储.md)
-    - [工作负载](/Kubernetes/工作负载/README.md)
+    - 工作负载
+      - [Pod](/Kubernetes/工作负载/Pod/README.md)
+        - [共享机制](/Kubernetes/工作负载/Pod/共享机制.md)
+        - [原子调度](/Kubernetes/工作负载/Pod/原子调度.md)
+        - [案例：Pod 创建与访问](/Kubernetes/工作负载/Pod/案例：Pod%20创建与访问.md)
       - [SideCar](/Kubernetes/工作负载/SideCar/README.md)
         - [Adimission Controller](/Kubernetes/工作负载/SideCar/Adimission%20Controller.md)
-      - [共享机制](/Kubernetes/工作负载/共享机制.md)
-      - [原子调度](/Kubernetes/工作负载/原子调度.md)
-      - [案例：Pod 创建与访问](/Kubernetes/工作负载/案例：Pod%20创建与访问.md)
     - [控制器](/Kubernetes/控制器/README.md)
       - [Deployment](/Kubernetes/控制器/Deployment.md)
       - [应用与任务](/Kubernetes/控制器/应用与任务/README.md)
@@ -101,6 +102,9 @@
     - [Ceph](/虚拟化/Ceph/README.md)
       
     - [Docker](/虚拟化/Docker/README.md)
+      - Swarm
+        - [Swarm](/虚拟化/Docker/Swarm/Swarm.md)
+        - [基于 Docker Swarm 的微服务编排与监控](/虚拟化/Docker/Swarm/基于%20Docker%20Swarm%20的微服务编排与监控.md)
       - [数据卷与存储](/虚拟化/Docker/数据卷与存储/README.md)
         
       - [网络](/虚拟化/Docker/网络/README.md)
@@ -108,7 +112,6 @@
         - [网络配置](/虚拟化/Docker/网络/网络配置.md)
       - [配置部署](/虚拟化/Docker/配置部署/README.md)
         - [Compose](/虚拟化/Docker/配置部署/Compose.md)
-        - [Swarm](/虚拟化/Docker/配置部署/Swarm.md)
         - [安装与配置](/虚拟化/Docker/配置部署/安装与配置.md)
         - [容器编排](/虚拟化/Docker/配置部署/容器编排.md)
       - [镜像与容器](/虚拟化/Docker/镜像与容器/README.md)
