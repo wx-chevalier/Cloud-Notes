@@ -27,6 +27,8 @@
         - [Prometheus](/Kubernetes/入门与部署/典型案例/Prometheus.md)
         - [Traefik](/Kubernetes/入门与部署/典型案例/Traefik.md)
         - [Web 应用](/Kubernetes/入门与部署/典型案例/Web%20应用.md)
+      - 命令控制
+        - [kubectl](/Kubernetes/入门与部署/命令控制/kubectl.md)
       - 基础概念
         - [Label 与 Selector](/Kubernetes/入门与部署/基础概念/Label%20与%20Selector.md)
         - [开放接口](/Kubernetes/入门与部署/基础概念/开放接口.md)
@@ -34,11 +36,16 @@
         - [资源对象](/Kubernetes/入门与部署/基础概念/资源对象.md)
         - [集群组件](/Kubernetes/入门与部署/基础概念/集群组件.md)
       - 安装配置
-        - [Docker 本地搭建](/Kubernetes/入门与部署/安装配置/Docker%20本地搭建.md)
-        - [Minikube](/Kubernetes/入门与部署/安装配置/Minikube.md)
-        - [Rancher 搭建集群](/Kubernetes/入门与部署/安装配置/Rancher%20搭建集群.md)
-        - [Ubuntu 集群搭建](/Kubernetes/入门与部署/安装配置/Ubuntu%20集群搭建.md)
-        - [kubectl](/Kubernetes/入门与部署/安装配置/kubectl.md)
+        - Minikube
+          - [Docker 本地搭建](/Kubernetes/入门与部署/安装配置/Minikube/Docker%20本地搭建.md)
+          - [Minikube](/Kubernetes/入门与部署/安装配置/Minikube/Minikube.md)
+        - [k3s](/Kubernetes/入门与部署/安装配置/k3s/README.md)
+          
+        - [kind](/Kubernetes/入门与部署/安装配置/kind/README.md)
+          
+        - 集群
+          - [Rancher 搭建集群](/Kubernetes/入门与部署/安装配置/集群/Rancher%20搭建集群.md)
+          - [Ubuntu 集群搭建](/Kubernetes/入门与部署/安装配置/集群/Ubuntu%20集群搭建.md)
     - [存储与配置](/Kubernetes/存储与配置/README.md)
       - [ConfigMap](/Kubernetes/存储与配置/ConfigMap/README.md)
         
@@ -98,9 +105,6 @@
         - [亲和性调度](/Kubernetes/高可用集群/调度和驱逐/亲和性调度.md)
         - [租户隔离](/Kubernetes/高可用集群/调度和驱逐/租户隔离.md)
         - [调度架构](/Kubernetes/高可用集群/调度和驱逐/调度架构.md)
-      - 集群发布版
-        - [kind](/Kubernetes/高可用集群/集群发布版/kind/README.md)
-          
       - [集群监控](/Kubernetes/高可用集群/集群监控/README.md)
         
   - [云计算](/云计算/README.md)
