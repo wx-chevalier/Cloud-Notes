@@ -1,4 +1,4 @@
-![](https://i.postimg.cc/cC1YKzNS/image.png)
+![Kubernetes 网络示意图](https://i.postimg.cc/cC1YKzNS/image.png)
 
 # K8s 部署与实战
 
