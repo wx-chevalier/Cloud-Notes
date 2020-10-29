@@ -36,11 +36,11 @@
         - [资源对象](/Kubernetes/入门与部署/基础概念/资源对象.md)
         - [集群组件](/Kubernetes/入门与部署/基础概念/集群组件.md)
       - 安装配置
+        - [K3s](/Kubernetes/入门与部署/安装配置/K3s/README.md)
+          
         - Minikube
           - [Docker 本地搭建](/Kubernetes/入门与部署/安装配置/Minikube/Docker%20本地搭建.md)
           - [Minikube](/Kubernetes/入门与部署/安装配置/Minikube/Minikube.md)
-        - [k3s](/Kubernetes/入门与部署/安装配置/k3s/README.md)
-          
         - [kind](/Kubernetes/入门与部署/安装配置/kind/README.md)
           
         - 集群
