@@ -80,4 +80,4 @@ Chart 的自述文件应由 Markdown（README.md）语法格式化，并且通�
 - 选项 `values.yaml` 和默认值的说明
 - 任何其他可能与安装或配置 chart 相关的信息
 
-chart 还可以包含一个简短的纯文本 `templates/NOTES.txt` 文件，在安装后以及查看版本状态时将打印出来。此文件将作为模板 [template](https://whmzsu.github.io/helm-doc-zh-cn/chart/charts-zh_cn.html#templates-and-values) 进行评估 ，并可用于显示使用说明，后续步骤或任何其他与发布 chart 相关的信息。例如，可以提供用于连接到数据库或访问 Web UI 的指令。由于运行时，该文件被打印到标准输出 `helm install` 或 `helm status`，建议保持内容简短并把更多细节指向自述文件。
+chart 还可以包含一个简短的纯文本 `templates/NOTES.txt` 文件，在安装后以及查看版本状态时将打印出来。此文件将作为模板 [template](https://whmzsu.github.io/helm-doc-zh-cn/chart/charts-zh_cn.html#templates-and-values) 进行评估，并可用于显示使用说明，后续步骤或任何其他与发布 chart 相关的信息。例如，可以提供用于连接到数据库或访问 Web UI 的指令。由于运行时，该文件被打印到标准输出 `helm install` 或 `helm status`，建议保持内容简短并把更多细节指向自述文件。
