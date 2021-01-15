@@ -30,7 +30,7 @@ spec:
 #  ...
 ```
 
-如果在 pod 和 service account 中同时设置了 automountServiceAccountToken , pod 设置中的优先级更高。
+如果在 pod 和 service account 中同时设置了 automountServiceAccountToken, pod 设置中的优先级更高。
 
 # 使用多个 Service Account
 
