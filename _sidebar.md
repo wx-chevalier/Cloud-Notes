@@ -127,9 +127,9 @@
     - 2.6 网格可视化
       - [2.6.1 Kiali](/服务网格/网格可视化/Kiali/README.md)
         
-    - 2.7 设计理念
-      - [2.7.1 ServiceMesh 产品对比](/服务网格/设计理念/ServiceMesh%20产品对比.md)
-      - [2.7.2 Sidecar](/服务网格/设计理念/Sidecar.md)
+    - 2.7 设计与对比
+      - [2.7.1 ServiceMesh 产品对比](/服务网格/设计与对比/ServiceMesh%20产品对比.md)
+      - [2.7.2 Sidecar](/服务网格/设计与对比/Sidecar.md)
   - [3 虚拟化](/虚拟化/README.md)
     - [3.1 Ceph](/虚拟化/Ceph/README.md)
       
