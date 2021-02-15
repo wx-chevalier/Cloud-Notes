@@ -106,6 +106,10 @@ kube-system   weave-net-fvttp                     2/2     Running   0          8
 kube-system   weave-net-xl7km                     2/2     Running   0          8d    172.16.83.14   docker-01   <none>           <none>
 ```
 
+下图为 kubectl 的主要命令结构。
+
+![kubectl 常用命令](https://s3.ax1x.com/2021/02/14/yymII0.png)
+
 ## 第一个 Pod
 
 ```sh
@@ -155,7 +159,7 @@ LAST SEEN   TYPE     REASON      OBJECT      MESSAGE
 
 在上一条命令的结果中，可以观察到 nginx 的执行发生在默认的命名空间，而本地仓库中不存在 nginx 镜像，因此，必须下载镜像。
 
-# 资源的 YAML 描述
+## 资源的 YAML 描述
 
 就像在 Docker Swarm 中处理 Stack 时一样，k8s 中的资源通常是以 YAML 或 JSON 文件声明，然后通过 kubectl 进行操作。为了省去我们写整个文件的麻烦，可以用 K8S 中现有对象的转储作为模板，如下所示。
 
@@ -351,7 +355,92 @@ nginx   1/1     Running   0          109s
 另一种创建文件模板的方式是通过选择 --dry-runof kubectl，根据要创建的资源类型，操作略有不同。举例说明： --dry-runof kubectl
 
 ```sh
+$ kubectl run meu-nginx --image nginx --dry-run=client -o yaml > pod-template.yaml
 
+$ kubectl create deployment meu-nginx --image=nginx --dry-run=client -o yaml > deployment-template.yaml
+```
+
+## 暴露 Pod
+
+集群之外的设备，默认情况下，无法访问创建的 pod，这与其他容器系统一样。要暴露一个 pod ，运行以下命令。
+
+```sh
+$ kubectl expose pod nginx
+error: couldn't find port via --port flag or introspection
+See 'kubectl expose -h' for help and examples
+```
+
+发生错误的原因是 k8s 不知道哪个是应该暴露的容器的目的端口（在这种情况下，80 / TCP）。要配置它，让我们首先删除我们的旧 pod 。
+
+```sh
+$ kubectl delete -f meu-primeiro.yaml
+```
+
+然后重设如下配置：
+
+```yaml
+...
+ spec :
+        containers :
+       - image : nginx
+         imagePullPolicy : Always
+         ports :
+         - containerPort : 80
+         name : nginx
+         resources : {}
+...
+```
+
+修改文件后，保存文件并使用以下命令再次创建 pod。
+
+```sh
+$ kubectl create -f meu-primeiro.yaml
+
+pod/nginx created
+
+$ kubectl get pod nginx
+
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          32s
+
+$ kubectl expose pod nginx
+$ kubectl get services
+
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   8d
+nginx        ClusterIP   10.105.41.192   <none>        80/TCP    2m30s
+```
+
+正如你所看到的，在我们的集群中，有两个服务：第一个是给 k8s 本身使用的，而第二个是我们刚刚创建的。通过在 CLUSTER-IP 栏中显示的 IP 地址，Nginx 的主界面应该呈现在我们面前。
+
+```sh
+curl 10.105.41.192
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
 ```
 
 # TBD
