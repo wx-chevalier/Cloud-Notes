@@ -30,9 +30,13 @@
       - [2.2.4 Namespace](/Kubernetes/工作载荷/Namespace/README.md)
         
       - [2.2.5 Pod](/Kubernetes/工作载荷/Pod/README.md)
-        - [2.2.5.1 共享机制](/Kubernetes/工作载荷/Pod/共享机制.md)
-        - [2.2.5.2 原子调度](/Kubernetes/工作载荷/Pod/原子调度.md)
-        - [2.2.5.3 案例：Pod 创建与访问](/Kubernetes/工作载荷/Pod/案例：Pod%20创建与访问.md)
+        - 2.2.5.1 共享与调度
+          - [2.2.5.1.1 共享存储](/Kubernetes/工作载荷/Pod/共享与调度/共享存储.md)
+          - [2.2.5.1.2 网络空间](/Kubernetes/工作载荷/Pod/共享与调度/网络空间.md)
+          - [2.2.5.1.3 进程通信](/Kubernetes/工作载荷/Pod/共享与调度/进程通信.md)
+        - 2.2.5.2 声明与管理
+          - [2.2.5.2.1 Hello World](/Kubernetes/工作载荷/Pod/声明与管理/Hello%20World.md)
+          - [2.2.5.2.2 InitContainers](/Kubernetes/工作载荷/Pod/声明与管理/InitContainers.md)
       - [2.2.6 SideCar](/Kubernetes/工作载荷/SideCar/README.md)
         - [2.2.6.1 Adimission Controller](/Kubernetes/工作载荷/SideCar/Adimission%20Controller.md)
     - 2.3 服务负载
