@@ -1,5 +1,11 @@
 # Deployment 操作
 
+当你使用 `kubectl create deployment` 时，你正在部署一个名为 Deployment 的对象。与其他对象一样，Deployment 也可以使用 YAML 或 JSON 文件（即 manifests）创建。如果你想改变对象的任何配置，例如 pod，你可以使用 kubectl apply，通过 manifest，甚至通过 kubectl edit。通常情况下，当您对 Deployment 进行更改时，会创建一个新版本的 ReplicaSet，它将成为资产并导致其前身被禁用。较早版本的 ReplicaSets 将被保留，从而在发生故障时可以回滚。
+
+标签对于集群的管理是很重要的，因为有了标签就可以搜索或选择集群中的资源，使你能够以小类来组织，从而方便你的搜索和组织你的豆荚和集群资源。标签不是 API 服务器的功能，它们是以键值格式存储在元数据中的。
+
+# 生命周期管理
+
 ## 创建
 
 比如一个简单的 Nginx 应用可以定义为：
@@ -230,4 +236,44 @@ Deployment 暂停前的初始状态将继续它的功能，而不会对 Deployme
 ```sh
 $ kubectl rollout resume deploy nginx
 deployment "nginx" resumed
+```
+
+# 过滤与选择
+
+## 根据标签过滤
+
+当我们创建 Deployments 时，我们添加了以下标签：
+
+```yaml
+labels:
+  run: nginx
+  dc: UK
+---
+labels:
+  run: nginx
+  dc: Netherlands
+```
+
+Labels 是用来组织集群的，让我们列出我们的 Pods 寻找 Labels。首先让我们用 dc=UK 和 dc=Netherlands 这两个标签进行搜索。
+
+```sh
+$ kubectl get pods -l dc=UK
+
+NAME                                 READY  STATUS   RESTARTS   AGE
+primeiro-deployment-68c9dbf8b8-kjqpt 1/1    Running  0          3m
+
+$ kubectl get pods -l dc=Netherlands
+
+NAME                                READY STATUS    RESTARTS   AGE
+segundo-deployment-59db86c584-cf9pp 1/1   Running   0          4m
+```
+
+如果你想要更个性化的输出，我们可以列举如下：
+
+```sh
+kubectl get pod -L dc
+
+NAME                         READY STATUS   RESTARTS AGE DC
+primeiro-deployment-68c9...  1/1   Running  0        5m  UK
+segundo-deployment-59db ...  1/1   Running  0        5m  Netherlands
 ```

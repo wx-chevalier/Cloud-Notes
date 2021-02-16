@@ -34,16 +34,16 @@ spec:
 
 - service manifest: [service.yaml](https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/docs/tutorials/acme/quick-start/example/service.yaml)
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: kuard
 spec:
   ports:
-  - port: 80
-    targetPort: 8080
-    protocol: TCP
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
   selector:
     app: kuard
 ```
@@ -64,7 +64,7 @@ A sample ingress you can start with is:
 
 - ingress manifest: [ingress.yaml](https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/docs/tutorials/acme/quick-start/example/ingress.yaml)
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -75,17 +75,17 @@ metadata:
 
 spec:
   tls:
-  - hosts:
-    - example.example.com
-    secretName: quickstart-example-tls
+    - hosts:
+        - example.example.com
+      secretName: quickstart-example-tls
   rules:
-  - host: example.example.com
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: kuard
-          servicePort: 80
+    - host: example.example.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: kuard
+              servicePort: 80
 ```
 
 You can download the sample manifest from github, edit it, and submit the manifest to Kubernetes with the command:
@@ -137,8 +137,7 @@ It is critical to make sure that your ingress is available and responding correc
 
 # Deploy Cert Manager
 
-Kubernetes 原生的证书管理控制器，可帮助从各种地方请求证书，比如 Let’s Encrypt, HashiCorp Vault, Venafi，可以请求简单的 signing keypair，或自验证证书。
-它会保证请求的证书有效，会在证书失效之前尝试更新。
+Kubernetes 原生的证书管理控制器，可帮助从各种地方请求证书，比如 Let’s Encrypt, HashiCorp Vault, Venafi，可以请求简单的 signing keypair，或自验证证书。它会保证请求的证书有效，会在证书失效之前尝试更新。
 
 ![cert-manager-high-level-overview](https://cert-manager.io/images/high-level-overview.svg)
 

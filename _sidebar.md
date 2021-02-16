@@ -2,7 +2,7 @@
   - [2 Kubernetes](/Kubernetes/README.md)
     - [2.1 存储](/Kubernetes/存储/README.md)
       - [2.1.1 ConfigMap](/Kubernetes/存储/ConfigMap/README.md)
-        
+        - [2.1.1.1 创建与使用](/Kubernetes/存储/ConfigMap/创建与使用.md)
       - [2.1.2 Rook](/Kubernetes/存储/Rook/README.md)
         - [2.1.2.1 安装配置](/Kubernetes/存储/Rook/安装配置.md)
       - [2.1.3 Secret](/Kubernetes/存储/Secret/README.md)
@@ -13,27 +13,37 @@
     - 2.2 工作载荷
       - [2.2.1 Ambassador](/Kubernetes/工作载荷/Ambassador/README.md)
         - [2.2.1.1 K3s 结合 Ambassador 部署](/Kubernetes/工作载荷/Ambassador/K3s%20结合%20Ambassador%20部署.md)
-      - [2.2.2 Deployment](/Kubernetes/工作载荷/Deployment/README.md)
-        - [2.2.2.1 案例](/Kubernetes/工作载荷/Deployment/案例/README.md)
-          - [2.2.2.1.1 有状态应用](/Kubernetes/工作载荷/Deployment/案例/有状态应用.md)
-          - [2.2.2.1.2 简单无状态应用](/Kubernetes/工作载荷/Deployment/案例/简单无状态应用.md)
-          - [2.2.2.1.3 集群应用](/Kubernetes/工作载荷/Deployment/案例/集群应用.md)
-        - [2.2.2.2 资源限制](/Kubernetes/工作载荷/Deployment/资源限制.md)
-        - [2.2.2.3 部署管理](/Kubernetes/工作载荷/Deployment/部署管理.md)
-      - [2.2.3 Namespace](/Kubernetes/工作载荷/Namespace/README.md)
+      - [2.2.2 CronJobs](/Kubernetes/工作载荷/CronJobs/README.md)
         
-      - [2.2.4 Pod](/Kubernetes/工作载荷/Pod/README.md)
-        - [2.2.4.1 共享机制](/Kubernetes/工作载荷/Pod/共享机制.md)
-        - [2.2.4.2 原子调度](/Kubernetes/工作载荷/Pod/原子调度.md)
-        - [2.2.4.3 案例：Pod 创建与访问](/Kubernetes/工作载荷/Pod/案例：Pod%20创建与访问.md)
-      - [2.2.5 SideCar](/Kubernetes/工作载荷/SideCar/README.md)
-        - [2.2.5.1 Adimission Controller](/Kubernetes/工作载荷/SideCar/Adimission%20Controller.md)
+      - [2.2.3 Deployment](/Kubernetes/工作载荷/Deployment/README.md)
+        - 2.2.3.1 声明与管理
+          - [2.2.3.1.1 DaemonSet](/Kubernetes/工作载荷/Deployment/声明与管理/DaemonSet.md)
+          - [2.2.3.1.2 Deployment](/Kubernetes/工作载荷/Deployment/声明与管理/Deployment.md)
+          - [2.2.3.1.3 ReplicaSet](/Kubernetes/工作载荷/Deployment/声明与管理/ReplicaSet.md)
+        - [2.2.3.2 案例](/Kubernetes/工作载荷/Deployment/案例/README.md)
+          - [2.2.3.2.1 有状态应用](/Kubernetes/工作载荷/Deployment/案例/有状态应用.md)
+          - [2.2.3.2.2 简单无状态应用](/Kubernetes/工作载荷/Deployment/案例/简单无状态应用.md)
+          - [2.2.3.2.3 集群应用](/Kubernetes/工作载荷/Deployment/案例/集群应用.md)
+        - 2.2.3.3 限制与调度
+          - [2.2.3.3.1 节点调度](/Kubernetes/工作载荷/Deployment/限制与调度/节点调度.md)
+          - [2.2.3.3.2 资源限制](/Kubernetes/工作载荷/Deployment/限制与调度/资源限制.md)
+      - [2.2.4 Namespace](/Kubernetes/工作载荷/Namespace/README.md)
+        
+      - [2.2.5 Pod](/Kubernetes/工作载荷/Pod/README.md)
+        - [2.2.5.1 共享机制](/Kubernetes/工作载荷/Pod/共享机制.md)
+        - [2.2.5.2 原子调度](/Kubernetes/工作载荷/Pod/原子调度.md)
+        - [2.2.5.3 案例：Pod 创建与访问](/Kubernetes/工作载荷/Pod/案例：Pod%20创建与访问.md)
+      - [2.2.6 SideCar](/Kubernetes/工作载荷/SideCar/README.md)
+        - [2.2.6.1 Adimission Controller](/Kubernetes/工作载荷/SideCar/Adimission%20Controller.md)
     - 2.3 服务负载
       - [2.3.1 Ingress](/Kubernetes/服务负载/Ingress/README.md)
-        - [2.3.1.1 Ingress 配置](/Kubernetes/服务负载/Ingress/Ingress%20配置.md)
-        - [2.3.1.2 Nginx Ingress 与 CertManager 部署](/Kubernetes/服务负载/Ingress/Nginx%20Ingress%20与%20CertManager%20部署.md)
-        - [2.3.1.3 Porter](/Kubernetes/服务负载/Ingress/Porter.md)
-        - [2.3.1.4 Traefik](/Kubernetes/服务负载/Ingress/Traefik.md)
+        - 2.3.1.1 Nginx
+          - [2.3.1.1.1 Ingress 配置](/Kubernetes/服务负载/Ingress/Nginx/Ingress%20配置.md)
+          - [2.3.1.1.2 Nginx Ingress 与 CertManager 部署](/Kubernetes/服务负载/Ingress/Nginx/Nginx%20Ingress%20与%20CertManager%20部署.md)
+        - [2.3.1.2 Porter](/Kubernetes/服务负载/Ingress/Porter/README.md)
+          
+        - [2.3.1.3 Traefik](/Kubernetes/服务负载/Ingress/Traefik/README.md)
+          
       - [2.3.2 Network Policy](/Kubernetes/服务负载/Network%20Policy/README.md)
         
       - [2.3.3 Service](/Kubernetes/服务负载/Service/README.md)
