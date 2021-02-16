@@ -27,23 +27,20 @@
         - 2.2.3.3 限制与调度
           - [2.2.3.3.1 节点调度](/Kubernetes/工作载荷/Deployment/限制与调度/节点调度.md)
           - [2.2.3.3.2 资源限制](/Kubernetes/工作载荷/Deployment/限制与调度/资源限制.md)
-      - [2.2.4 Namespace](/Kubernetes/工作载荷/Namespace/README.md)
-        
-      - [2.2.5 Pod](/Kubernetes/工作载荷/Pod/README.md)
-        - 2.2.5.1 共享与调度
-          - [2.2.5.1.1 共享存储](/Kubernetes/工作载荷/Pod/共享与调度/共享存储.md)
-          - [2.2.5.1.2 网络空间](/Kubernetes/工作载荷/Pod/共享与调度/网络空间.md)
-          - [2.2.5.1.3 进程通信](/Kubernetes/工作载荷/Pod/共享与调度/进程通信.md)
-        - 2.2.5.2 声明与管理
-          - [2.2.5.2.1 Hello World](/Kubernetes/工作载荷/Pod/声明与管理/Hello%20World.md)
-          - [2.2.5.2.2 InitContainers](/Kubernetes/工作载荷/Pod/声明与管理/InitContainers.md)
-      - [2.2.6 SideCar](/Kubernetes/工作载荷/SideCar/README.md)
-        - [2.2.6.1 Adimission Controller](/Kubernetes/工作载荷/SideCar/Adimission%20Controller.md)
+      - [2.2.4 Pod](/Kubernetes/工作载荷/Pod/README.md)
+        - 2.2.4.1 共享与调度
+          - [2.2.4.1.1 共享存储](/Kubernetes/工作载荷/Pod/共享与调度/共享存储.md)
+          - [2.2.4.1.2 网络空间](/Kubernetes/工作载荷/Pod/共享与调度/网络空间.md)
+          - [2.2.4.1.3 进程通信](/Kubernetes/工作载荷/Pod/共享与调度/进程通信.md)
+        - 2.2.4.2 声明与管理
+          - [2.2.4.2.1 Hello World](/Kubernetes/工作载荷/Pod/声明与管理/Hello%20World.md)
+          - [2.2.4.2.2 InitContainers](/Kubernetes/工作载荷/Pod/声明与管理/InitContainers.md)
+      - [2.2.5 SideCar](/Kubernetes/工作载荷/SideCar/README.md)
+        - [2.2.5.1 Adimission Controller](/Kubernetes/工作载荷/SideCar/Adimission%20Controller.md)
     - 2.3 服务负载
       - [2.3.1 Ingress](/Kubernetes/服务负载/Ingress/README.md)
-        - 2.3.1.1 Nginx
-          - [2.3.1.1.1 Ingress 配置](/Kubernetes/服务负载/Ingress/Nginx/Ingress%20配置.md)
-          - [2.3.1.1.2 Nginx Ingress 与 CertManager 部署](/Kubernetes/服务负载/Ingress/Nginx/Nginx%20Ingress%20与%20CertManager%20部署.md)
+        - [2.3.1.1 Nginx](/Kubernetes/服务负载/Ingress/Nginx/README.md)
+          - [2.3.1.1.1 CertManager](/Kubernetes/服务负载/Ingress/Nginx/CertManager.md)
         - [2.3.1.2 Porter](/Kubernetes/服务负载/Ingress/Porter/README.md)
           
         - [2.3.1.3 Traefik](/Kubernetes/服务负载/Ingress/Traefik/README.md)
@@ -59,9 +56,11 @@
         - [2.3.4.2 代理与负载均衡](/Kubernetes/服务负载/kube-proxy/代理与负载均衡.md)
     - [2.4 权限](/Kubernetes/权限/README.md)
       - [2.4.1 RBAC](/Kubernetes/权限/RBAC/README.md)
+        - [2.4.1.1 Service Account](/Kubernetes/权限/RBAC/Service%20Account.md)
+      - [2.4.2 命名空间](/Kubernetes/权限/命名空间/README.md)
         
-      - [2.4.2 Service Account](/Kubernetes/权限/Service%20Account.md)
-      - [2.4.3 命名空间](/Kubernetes/权限/命名空间.md)
+      - [2.4.3 用户管理](/Kubernetes/权限/用户管理/README.md)
+        
     - [2.5 概念与部署](/Kubernetes/概念与部署/README.md)
       - 2.5.1 基础概念
         - [2.5.1.1 Label 与 Selector](/Kubernetes/概念与部署/基础概念/Label%20与%20Selector.md)
