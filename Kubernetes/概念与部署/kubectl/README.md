@@ -352,7 +352,7 @@ NAME    READY   STATUS    RESTARTS   AGE
 nginx   1/1     Running   0          109s
 ```
 
-另一种创建文件模板的方式是通过选择 --dry-runof kubectl，根据要创建的资源类型，操作略有不同。举例说明： --dry-runof kubectl
+另一种创建文件模板的方式是通过选择 --dry-runof kubectl，根据要创建的资源类型，操作略有不同。举例说明：--dry-runof kubectl
 
 ```sh
 $ kubectl run meu-nginx --image nginx --dry-run=client -o yaml > pod-template.yaml
