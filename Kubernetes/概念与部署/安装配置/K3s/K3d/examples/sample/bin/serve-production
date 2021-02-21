@@ -1,2 +1,0 @@
-#!/bin/bash
-gunicorn app.app:app -c/app/conf/app/gunicorn.py

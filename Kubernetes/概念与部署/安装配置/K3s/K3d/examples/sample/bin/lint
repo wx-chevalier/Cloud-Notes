@@ -1,4 +1,0 @@
-#!/bin/sh
-
-black --check /app/src/
-
