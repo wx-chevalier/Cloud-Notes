@@ -3,7 +3,13 @@
     
   - [3 服务网格](/服务网格/README.md)
     - [3.1 Dapr](/服务网格/Dapr/README.md)
-      - [3.1.1 Hello World](/服务网格/Dapr/Hello%20World.md)
+      - [3.1.1 Components](/服务网格/Dapr/Components/README.md)
+        
+      - [3.1.2 生产配置](/服务网格/Dapr/生产配置/README.md)
+        
+      - 3.1.3 部署案例
+        - [3.1.3.1 Hello World](/服务网格/Dapr/部署案例/Hello%20World.md)
+        - [3.1.3.2 K8s](/服务网格/Dapr/部署案例/K8s.md)
     - [3.2 Envoy](/服务网格/Envoy/README.md)
       - [3.2.1 Kuma](/服务网格/Envoy/Kuma/README.md)
         
