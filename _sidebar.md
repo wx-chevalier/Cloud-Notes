@@ -2,31 +2,23 @@
   - [2 K8s](/K8s/README.md)
     
   - [3 服务网格](/服务网格/README.md)
-    - [3.1 Dapr](/服务网格/Dapr/README.md)
-      - [3.1.1 Components](/服务网格/Dapr/Components/README.md)
+    - [3.1 Envoy](/服务网格/Envoy/README.md)
+      - [3.1.1 Kuma](/服务网格/Envoy/Kuma/README.md)
         
-      - [3.1.2 生产配置](/服务网格/Dapr/生产配置/README.md)
-        
-      - 3.1.3 部署案例
-        - [3.1.3.1 Hello World](/服务网格/Dapr/部署案例/Hello%20World.md)
-        - [3.1.3.2 K8s](/服务网格/Dapr/部署案例/K8s.md)
-    - [3.2 Envoy](/服务网格/Envoy/README.md)
-      - [3.2.1 Kuma](/服务网格/Envoy/Kuma/README.md)
-        
-    - [3.3 Istio](/服务网格/Istio/README.md)
+    - [3.2 Istio](/服务网格/Istio/README.md)
       
-    - [3.4 Linkerd](/服务网格/Linkerd/README.md)
+    - [3.3 Linkerd](/服务网格/Linkerd/README.md)
       
-    - [3.5 Serverless](/服务网格/Serverless/README.md)
-      - [3.5.1 函数模式](/服务网格/Serverless/函数模式.md)
-      - [3.5.2 设计模式](/服务网格/Serverless/设计模式.md)
-      - [3.5.3 阿里云](/服务网格/Serverless/阿里云.md)
-    - 3.6 网格可视化
-      - [3.6.1 Kiali](/服务网格/网格可视化/Kiali/README.md)
+    - [3.4 Serverless](/服务网格/Serverless/README.md)
+      - [3.4.1 函数模式](/服务网格/Serverless/函数模式.md)
+      - [3.4.2 设计模式](/服务网格/Serverless/设计模式.md)
+      - [3.4.3 阿里云](/服务网格/Serverless/阿里云.md)
+    - 3.5 网格可视化
+      - [3.5.1 Kiali](/服务网格/网格可视化/Kiali/README.md)
         
-    - 3.7 设计与对比
-      - [3.7.1 ServiceMesh 产品对比](/服务网格/设计与对比/ServiceMesh%20产品对比.md)
-      - [3.7.2 Sidecar](/服务网格/设计与对比/Sidecar.md)
+    - 3.6 设计与对比
+      - [3.6.1 ServiceMesh 产品对比](/服务网格/设计与对比/ServiceMesh%20产品对比.md)
+      - [3.6.2 Sidecar](/服务网格/设计与对比/Sidecar.md)
   - [4 虚拟化](/虚拟化/README.md)
     - [4.1 Ceph](/虚拟化/Ceph/README.md)
       
