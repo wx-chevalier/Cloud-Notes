@@ -36,6 +36,43 @@ USER nonroot
 CMD ["--foo", "1", "--bar=2"]
 ```
 
+# 多阶段构建
+
+随着 17.05 版本的发布，Docker 对于镜像构建这块也作了一项重要更新，那就是 multi-stage build（多阶段构建），这有助于方便源代码控制，减小镜像体积。
+
+```Dockerfile
+# First stage: complete build environment
+FROM maven:3.5.0-jdk-8-alpine AS builder
+# add pom.xml and source code
+ADD ./pom.xml pom.xml
+ADD ./src src/
+# package jar
+RUN mvn clean package
+
+# Second stage: minimal runtime environment
+From openjdk:8-jre-alpine
+# copy jar from the first stage
+COPY --from=builder target/msb-1.0.jar msb.jar
+# run jar
+CMD ["java", "-jar", "msb.jar"]
+```
+
+对于 multi-stage build，其关键点主要有两点：
+
+在前面阶段的 FROM 指令后面增加了一个 AS 参数，可为该构建阶段命名，便于后续构建阶段引用，格式如下：
+
+```
+FROM image[:tag | @digest] AS stage
+```
+
+在后续阶段的 COPY 指令后面增加了--from 参数，指明引用前面哪一个构建阶段的成果，格式如下：
+
+```
+COPY --from=stage ...
+```
+
+同理，多阶段构建同样可以很方便地将多个彼此依赖的项目通过一个 Dockerfile 就可轻松构建出期望的容器镜像，而不用担心镜像太大、源码泄露等风险。
+
 # 安全配置
 
 容器安全是一个广泛的问题空间，有很多低垂的果实可以收获来降低风险。一个好的出发点是在编写 Dockerfiles 时遵循一些规则。
