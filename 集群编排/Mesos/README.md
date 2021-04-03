@@ -46,3 +46,9 @@ Slave 是运行在物理或虚拟服务器上的 Mesos 守护进程，是 Mesos 
 # Links
 
 - [mesos-docker-tutorial-how-to-build-your-own-framework](https://www.voxxed.com/blog/2014/12/mesos-docker-tutorial-how-to-build-your-own-framework/)
+
+- [Getting Started with Apache Mesos](https://github.com/shekhargulati/52-technologies-in-2016/blob/master/18-mesos/README.md)
+
+- [- [回顾 Java 发展，看 Docker 与 Mesos](http://dockone.io/article/1152)
+
+- [InfoQ - 深入浅出 Mesos](http://www.infoq.com/cn/minibooks/analyse-mesos)
