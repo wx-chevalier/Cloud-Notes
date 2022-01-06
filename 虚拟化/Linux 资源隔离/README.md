@@ -4,7 +4,7 @@
 
 ![Docker & Linux Internals](https://i.postimg.cc/d3x9b3NT/image.png)
 
-Linux CGroups 为一种名为 Linux 容器（LXC）的技术铺平了道路。LXC 实际上是我们今天所知的第一个实现容器的主要实现，利用 cgroup 和命名空间隔离来创建具有独立进程和网络空间的虚拟环境。从某种意义上说，这允许独立和隔离的用户空间。  容器的概念直接来自 LXC。事实上，早期版本的 Docker 直接构建在 LXC 之上。Docker 最初目标是做一个特殊的 LXC 的开源系统，最后慢慢演变为它自己的一套容器运行时环境。Docker 基于 Linux kernel 的 CGroups，Namespace，UnionFileSystem 等技术封装成一种自定义的容器格式，用于提供一整套虚拟运行环境。毫无疑问，近些年来 Docker 已经成为了容器技术的代名词。
+Linux CGroups 为一种名为 Linux 容器（LXC）的技术铺平了道路。LXC 实际上是我们今天所知的第一个实现容器的主要实现，利用 cgroup 和命名空间隔离来创建具有独立进程和网络空间的虚拟环境。从某种意义上说，这允许独立和隔离的用户空间。 容器的概念直接来自 LXC。事实上，早期版本的 Docker 直接构建在 LXC 之上。Docker 最初目标是做一个特殊的 LXC 的开源系统，最后慢慢演变为它自己的一套容器运行时环境。Docker 基于 Linux kernel 的 CGroups，Namespace，UnionFileSystem 等技术封装成一种自定义的容器格式，用于提供一整套虚拟运行环境。毫无疑问，近些年来 Docker 已经成为了容器技术的代名词。
 
 ![Docker 与虚拟机](https://i.postimg.cc/BZkHfrQD/image.png)
 
