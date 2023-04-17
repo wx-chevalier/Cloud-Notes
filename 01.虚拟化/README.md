@@ -12,13 +12,13 @@
 
 如 [DevOps 与 SRE 实战](https://ng-tech.icu/books/Backend-Series/#/devops) 中所述，容器解除了开发和运维之间的隔阂，但同时也带来了一些挑战，比如频繁的发布变更如何控制，如何控制容器集群的行为，如何拆分应用到容器之中等。这是一个专门用于容器编排调度的工具呼之欲出，Kubernetes 的出现彻底改变了局面，可以说它直接改变了应用的基础架构。
 
-![应用基础架构变迁](https://i.postimg.cc/fL83bjCV/image.png)
+![应用基础架构变迁](https://assets.ng-tech.icu/item/20230417211422.png)
 
 # 虚拟机
 
 虚拟机由某些特定的硬件和内核虚拟化组成，运行客户操作系统。称为管理程序的软件创建虚拟化硬件，其可以包括虚拟磁盘，虚拟网络接口，虚拟 CPU 等。虚拟机还包括可以与此虚拟硬件通信的宾客内核。管理程序可以托管，这意味着它是一些在主机操作系统（MacOS）上运行的软件，如示例中所示。它也可以是裸机，直接在机器硬件上运行（替换你的操作系统）。无论哪种方式，管理程序方法都被认为是重量级的，因为它需要虚拟化多个部分（如果不是全部硬件和内核）。
 
-![虚拟机与容器间的比较](https://i.postimg.cc/gcxWt8FX/image.png)
+![虚拟机与容器间的比较](https://assets.ng-tech.icu/item/20230417211553.png)
 
 VM 需要硬件虚拟化才能实现机器级隔离，而容器则只需要在同一操作系统内进行隔离操作。随着隔离空间数量的增加，开销差异变得非常明显。
 
@@ -26,11 +26,11 @@ VM 需要硬件虚拟化才能实现机器级隔离，而容器则只需要在�
 
 在过去几年里，云平台发展迅速，但其中困扰运维工程师最多的，是需要为各种迥异的开发语言安装相应的运行时环境。虽然自动化运维工具可以降低环境搭建的复杂度，但仍然不能从根本上解决环境的问题。
 
-![Containerized Applications](https://i.postimg.cc/W41KFcsF/image.png)
+![Containerized Applications](https://assets.ng-tech.icu/item/20230417211633.png)
 
 Docker 的出现成为了软件开发行业新的分水岭，容器技术的成熟也标志着技术新纪元的开启。Docker 提供了让开发工程师可以将应用和依赖封装到一个可移植的容器中的能力，这项举措使得 Docker 大有席卷整个软件行业并且进而改变行业游戏规则的趋势，这像极了当年智能手机刚出现时的场景——改变了整个手机行业的游戏规则。Docker 通过集装箱式的封装方式，让开发工程师和运维工程师都能够以 Docker 所提供的镜像分发的标准化方式发布应用，使得异构语言不再是捆绑团队的枷锁。
 
-![Traditional Deployment -> Virtualized Deployment -> Container Deployment](https://i.postimg.cc/V6R8yWsn/image.png)
+![Traditional Deployment -> Virtualized Deployment -> Container Deployment](https://assets.ng-tech.icu/item/20230417211652.png)
 
 容器是包含应用程序代码，配置和依赖关系的软件包，可提供运营效率和生产力。容器为我们提供了可预测的，可重复的和不可变的运行预期，容器的兴起是 DevOps 即服务的一个巨大推动因素，可以克服当今面临的最大安全障碍。容器化通过在操作系统级别进行虚拟化来使应用程序可移植，从而创建基于内核的隔离的封装系统。容器化的应用程序可以放在任何地方，无需依赖项运行或需要整个 VM，从而消除了依赖关系。
 
