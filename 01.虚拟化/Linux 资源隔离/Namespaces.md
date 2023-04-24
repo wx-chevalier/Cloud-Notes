@@ -114,7 +114,7 @@ root         2     1  0 15:36 pts/1    00:00:00 ps -ef
 
 Docker 容器中另一个重要特性是网络独立(之所以不用隔离一词是因为容器的网络还是要借助宿主机的网络来通信的)，使用到 Linux 的 NET Namespace 以及 vet。veth 主要的目的是为了跨 NET namespace 之间提供一种类似于 Linux 进程间通信的技术，所以 veth 总是成对出现，如下面的 veth0 和 veth1。它们位于不同的 NET namespace 中，在 veth 设备任意一端接收到的数据，都会从另一端发送出去。veth 实现了不同 namespace 的网络数据传输。
 
-![Docker Bridge](https://i.postimg.cc/k5XgGPQf/image.png)
+![Docker Bridge](https://assets.ng-tech.icu/item/20230424143547.png)
 
 在 Docker 中，宿主机的 veth 端会桥接到网桥中，接收到容器中的 veth 端发过来的数据后会经由网桥 docker0 再转发到宿主机网卡 eth0，最终通过 eth0 发送数据。当然在发送数据前，需要经过 iptables MASQUERADE 规则将源地址改成宿主机 ip，这样才能接收到响应数据包。而宿主机网卡接收到的数据会通过 iptables DNAT 根据端口号修改目的地址和端口为容器的 ip 和端口，然后根据路由规则发送到网桥 docker0 中，并最终由网桥 docker0 发送到对应的容器中。
 

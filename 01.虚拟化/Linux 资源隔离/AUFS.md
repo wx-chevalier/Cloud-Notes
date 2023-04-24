@@ -8,7 +8,7 @@ Docker 支持的 UnionFS 包括 OverlayFS，AUFS，devicemapper，vfs 以及 btr
 
 OverlayFS 与早期用过的 AUFS 类似，不过它比 AUFS 更简单，读写性能更好，在 docker-ce18.03 版本中默认用的存储驱动是 overlay2，老版本 overlay 官方已经不推荐使用。它将两个目录 upperdir 和 lowdir 联合挂载到一个 merged 目录，提供统一视图。其中 upperdir 是可读写层，对容器修改写入在该目录中，它也会隐藏 lowerdir 中相同的文件。而 lowdir 是只读层，Docker 镜像在这层。
 
-![OverlayFS](https://i.postimg.cc/FR2m1WZs/image.png)
+![OverlayFS](https://assets.ng-tech.icu/item/20230424144518.png)
 
 在看 Docker 镜像和容器存储结构前，可以先简单操作下 OverlayFS 看下基本概念。创建了 lowerdir 和 upperdir 两个目录，然后用 overlayfs 挂载到 merged 目录，这样在 merged 目录可以看到两个目录的所有文件 both.txt 和 only.txt。其中 upperdir 是可读写的，而 lowerdir 只读。通过 merged 目录来操作文件可以发现：
 
