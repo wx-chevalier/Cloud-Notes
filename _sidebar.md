@@ -3,7 +3,7 @@
       
     - [1.2 Docker [6]](/01.虚拟化/Docker/README.md)
       - [1.2.1 01.配置部署 [3]](/01.虚拟化/Docker/01.配置部署/README.md)
-        - [1.2.1.1 Compose](/01.虚拟化/Docker/01.配置部署/Compose.md)
+        - [1.2.1.1 Docker Compose](/01.虚拟化/Docker/01.配置部署/Docker%20Compose.md)
         - [1.2.1.2 安装与配置](/01.虚拟化/Docker/01.配置部署/安装与配置.md)
         - [1.2.1.3 容器编排](/01.虚拟化/Docker/01.配置部署/容器编排.md)
       - [1.2.2 02.镜像与容器 [2]](/01.虚拟化/Docker/02.镜像与容器/README.md)
@@ -17,8 +17,10 @@
       - 1.2.5 09.Swarm [2]
         - [1.2.5.1 Swarm](/01.虚拟化/Docker/09.Swarm/Swarm.md)
         - [1.2.5.2 基于 Docker Swarm 的微服务编排与监控](/01.虚拟化/Docker/09.Swarm/基于%20Docker%20Swarm%20的微服务编排与监控.md)
-      - 1.2.6 99.参考资料 [1]
-        - [1.2.6.1 无限咪咪 Docker 与 Kubernetes小记](/01.虚拟化/Docker/99.参考资料/2023-无限咪咪-Docker%20与%20Kubernetes小记.md)
+      - 1.2.6 99.参考资料 [2]
+        - [1.2.6.1 《Docker 从入门到实践》](/01.虚拟化/Docker/99.参考资料/2020-《Docker%20从入门到实践》/README.md)
+          
+        - [1.2.6.2 无限咪咪 Docker 与 Kubernetes小记](/01.虚拟化/Docker/99.参考资料/2023-无限咪咪-Docker%20与%20Kubernetes小记.md)
     - [1.3 Focker [4]](/01.虚拟化/Focker/README.md)
       - [1.3.1 Bash](/01.虚拟化/Focker/Bash.md)
       - [1.3.2 C](/01.虚拟化/Focker/C.md)
