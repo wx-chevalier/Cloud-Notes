@@ -1000,7 +1000,7 @@ Compiled successfully!
 webpack compiled successfully
 ```
 
-第一个 **-v /usr/app/node_modules**，没有冒号， 表示容器内这个文件夹不需要映射，使用容器本身的文件。
+第一个 **-v /usr/app/node_modules**，没有冒号，表示容器内这个文件夹不需要映射，使用容器本身的文件。
 
 第二个 **-v $(pwd):/usr/app**，在有冒号的情况下，左边的映射到右边。冒号左边表示本地目录，冒号右边表示容器内目录。
 
