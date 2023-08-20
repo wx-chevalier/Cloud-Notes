@@ -42,4 +42,4 @@ Kubernetes 是目前世界范围内关注度最高的开源项目，它是一个
 
 ## Links
 
-- [2018-kubernetes-tutorial #Series#](https://github.com/KeKe-Li/kubernetes-tutorial): Running Kubernetes cluster Locally tutorial.
+- [2018~kubernetes-tutorial #Series#](https://github.com/KeKe-Li/kubernetes-tutorial): Running Kubernetes cluster Locally tutorial.
