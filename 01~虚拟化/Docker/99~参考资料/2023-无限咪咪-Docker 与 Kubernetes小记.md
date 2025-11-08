@@ -2402,7 +2402,7 @@ wuxianmimi ~ % minikube dashboard
 
 会自动打开页面：
 
-![img](https://assets.ng-tech.icu/item/6e13e8686cc03f293c1cc2aebfba4d7ea9add88f.png@942w_561h_progressive.webp)minikube 控制台
+![img](https://ngte-superbed.oss-cn-beijing.aliyuncs.com/item/6e13e8686cc03f293c1cc2aebfba4d7ea9add88f.png@942w_561h_progressive.webp)minikube 控制台
 
 # 第十六章：Kubernetes 生产环境部署（Google Cloud）
 

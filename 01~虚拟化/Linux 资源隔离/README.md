@@ -2,11 +2,11 @@
 
 容器是一种轻量级的虚拟化技术，它不需要模拟硬件创建虚拟机。在 Linux 系统里面，使用到 Linux kernel 的 CGroups，Namespace(ipc，network，user，pid，mount），capability 等用于隔离运行环境和资源限制的技术。容器技术早就出现。例如 Solaris Zones 和 BSD jails 就是非 Linux 操作系统上的容器，而用于 Linux 的容器技术也有很多如 Linux-Vserver、OpenVZ 和 FreeVPS。虽然这些技术都已经成熟，但是这些解决方案还没有将它们的容器支持集成到主流 Linux 内核。总的来说，容器不等同于 Docker，容器更不是虚拟机。
 
-![Docker & Linux Internals](https://assets.ng-tech.icu/item/20230424143609.png)
+![Docker & Linux Internals](https://ngte-superbed.oss-cn-beijing.aliyuncs.com/item/20230424143609.png)
 
 Linux CGroups 为一种名为 Linux 容器（LXC）的技术铺平了道路。LXC 实际上是我们今天所知的第一个实现容器的主要实现，利用 cgroup 和命名空间隔离来创建具有独立进程和网络空间的虚拟环境。从某种意义上说，这允许独立和隔离的用户空间。容器的概念直接来自 LXC。事实上，早期版本的 Docker 直接构建在 LXC 之上。Docker 最初目标是做一个特殊的 LXC 的开源系统，最后慢慢演变为它自己的一套容器运行时环境。Docker 基于 Linux kernel 的 CGroups，Namespace，UnionFileSystem 等技术封装成一种自定义的容器格式，用于提供一整套虚拟运行环境。毫无疑问，近些年来 Docker 已经成为了容器技术的代名词。
 
-![Docker 与虚拟机](https://assets.ng-tech.icu/item/20230424143632.png)
+![Docker 与虚拟机](https://ngte-superbed.oss-cn-beijing.aliyuncs.com/item/20230424143632.png)
 
 # After `docker run`
 

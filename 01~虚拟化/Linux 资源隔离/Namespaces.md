@@ -21,7 +21,7 @@ root@host:/home/vagrant# ls -ls /proc/self/ns/
 
 在容器中，有自己的 Pid namespace，因此我们看到的只有 PID 为 1 的初始进程以及它的子进程，而宿主机的其他进程容器内是看不到的。通常来说，Linux 启动后它会先启动一个 PID 为 1 的进程，这是系统进程树的根进程，根进程会接着创建子进程来初始化系统服务。PID namespace 允许在新的 namespace 创建一棵新的进程树，它可以有自己的 PID 为 1 的进程。在 PID namespace 的隔离下，子进程名字空间无法知道父进程名字空间的进程，如在 Docker 容器中无法看到宿主机的进程，而父进程名字空间可以看到子进程名字空间的所有进程。如图所示：
 
-![Pid Namespace](https://assets.ng-tech.icu/item/20230424143451.png)
+![Pid Namespace](https://ngte-superbed.oss-cn-beijing.aliyuncs.com/item/20230424143451.png)
 
 Linux 内核加入 PID Namespace 后，对 pid 结构进行了修改，新增的 upid 结构用于跟踪 namespace 和 pid。
 
@@ -94,7 +94,7 @@ NS Namespace 用于隔离挂载点，不同 NS Namespace 的挂载点互不影�
 
 在最初的 NS Namespace 版本中，挂载点是完全隔离的。初始状态下，子进程看到的挂载点与父进程是一样的。在新的 Namespace 中，子进程可以随意 mount/umount 任何目录，而不会影响到父 Namespace。使用 NS Namespace 完全隔离挂载点初衷很好，但是也带来了某些情况下不方便，比如我们新加了一块磁盘，如果完全隔离则需要在所有的 Namespace 中都挂载一遍。为此，Linux 在 2.6.15 版本中加入了一个 shared subtree 特性，通过指定 Propagation 来确定挂载事件如何传播。比如通过指定 MS_SHARED 来允许在一个 peer group(子 namespace 和父 namespace 就属于同一个组)共享挂载点，mount/umount 事件会传播到 peer group 成员中。使用 MS_PRIVATE 不共享挂载点和传播挂载事件。其他还有 MS_SLAVE 和 NS_UNBINDABLE 等选项。可以通过查看 cat /proc/self/mountinfo 来看挂载点信息，若没有传播参数则为 MS_PRIVATE 的选项。
 
-![Mount Namespace](https://assets.ng-tech.icu/item/20230424143519.png)
+![Mount Namespace](https://ngte-superbed.oss-cn-beijing.aliyuncs.com/item/20230424143519.png)
 
 例如你在初始 namespace 有两个挂载点，通过 mount --make-shared /dev/sda1 /mntS 设置/mntS 为 shared 类型，mount --make-private /dev/sda1 /mntP 设置/mntP 为 private 类型。当你使用 unshare -m bash 新建一个 namespace 并在它们下面挂载子目录时，可以发现/mntS 下面的子目录 mount/umount 事件会传播到父 namespace，而/mntP 则不会。
 
@@ -114,7 +114,7 @@ root         2     1  0 15:36 pts/1    00:00:00 ps -ef
 
 Docker 容器中另一个重要特性是网络独立(之所以不用隔离一词是因为容器的网络还是要借助宿主机的网络来通信的)，使用到 Linux 的 NET Namespace 以及 vet。veth 主要的目的是为了跨 NET namespace 之间提供一种类似于 Linux 进程间通信的技术，所以 veth 总是成对出现，如下面的 veth0 和 veth1。它们位于不同的 NET namespace 中，在 veth 设备任意一端接收到的数据，都会从另一端发送出去。veth 实现了不同 namespace 的网络数据传输。
 
-![Docker Bridge](https://assets.ng-tech.icu/item/20230424143547.png)
+![Docker Bridge](https://ngte-superbed.oss-cn-beijing.aliyuncs.com/item/20230424143547.png)
 
 在 Docker 中，宿主机的 veth 端会桥接到网桥中，接收到容器中的 veth 端发过来的数据后会经由网桥 docker0 再转发到宿主机网卡 eth0，最终通过 eth0 发送数据。当然在发送数据前，需要经过 iptables MASQUERADE 规则将源地址改成宿主机 ip，这样才能接收到响应数据包。而宿主机网卡接收到的数据会通过 iptables DNAT 根据端口号修改目的地址和端口为容器的 ip 和端口，然后根据路由规则发送到网桥 docker0 中，并最终由网桥 docker0 发送到对应的容器中。
 

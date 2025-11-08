@@ -1,6 +1,6 @@
 ![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg) ![](https://parg.co/bDm)
 
-![封面图](https://assets.ng-tech.icu/item/20230417205812.png)
+![封面图](https://ngte-superbed.oss-cn-beijing.aliyuncs.com/item/20230417205812.png)
 
 # Cloud Series
 
@@ -26,7 +26,7 @@
 
 随着虚拟化技术的成熟和分布式架构的普及，用来部署、管理和运行应用的云平台被越来越多地提及。IaaS、PaaS 和 SaaS 是云计算的三种基本服务类型，分别表示关注硬件基础设施的基础设施即服务、关注软件和中间件平台的平台即服务，以及关注业务应用的软件即服务。容器的出现，使原有的基于虚拟机的云主机应用，彻底转变为更加灵活和轻量的容器与编排调度的云平台应用。
 
-![Kubernetes Master](https://assets.ng-tech.icu/item/20230417211132.png)
+![Kubernetes Master](https://ngte-superbed.oss-cn-beijing.aliyuncs.com/item/20230417211132.png)
 
 然而容器单元越来越散落使得管理成本逐渐上升，大家对容器编排工具的需求前所未有的强烈，Kubernetes、Mesos、Swarm 等为云原生应用提供了强有力的编排和调度能力，它们是云平台上的分布式操作系统。容器编排是通常可以部署多个容器以通过自动化实现应用程序的过程。像 Kubernetes 和 Docker Swarm 这样的容器管理和容器编排引擎，使用户能够指导容器部署并自动执行更新，运行状况监视和故障转移过程。
 
