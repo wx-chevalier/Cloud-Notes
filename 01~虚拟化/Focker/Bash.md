@@ -1,1 +1,0 @@
-# Focker in Bash
