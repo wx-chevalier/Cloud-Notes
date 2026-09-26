@@ -37,16 +37,13 @@ Next Step: Try K8s &Terraform & Rancher
 ```sh
 #!/bin/bash
 
-
 REDIS_CONFIG='port 6379
 cluster-enabled yes
 cluster-config-file nodes.conf
 cluster-node-timeout 5000
 appendonly yes'
 
-
 network=mynet
-
 
 docker service create --name redis \
   --network $network \
@@ -55,10 +52,8 @@ docker service create --name redis \
   -e REDIS_CONFIG_FILE="/usr/local/etc/redis/redis.conf" \
   redis:3.2.6-alpine sh -c 'mkdir -p $(dirname $REDIS_CONFIG_FILE) && echo "$REDIS_CONFIG" > $REDIS_CONFIG_FILE && cat $REDIS_CONFIG_FILE && redis-server $REDIS_CONFIG_FILE'
 
-
 sleep 2
 docker service ps redis --no-trunc
-
 
 # run the redis-trib.rb script(the docker inspect runs on the host and the echo output is passed the along to the ruby container)
 docker run -it --rm --net $network ruby sh -c "\
@@ -103,17 +98,13 @@ OK
 # 抓取代码库
 git clone https://github.com/alexellis/faas
 
-
 # 执行 Stack 安装
 ./deploy_stack.sh
-
 
 # docker-composer.yml
 version: "3"
 
 services:
-
-
 
 # Core API services are pinned, HA is provided for functions.
 
@@ -170,8 +161,6 @@ kcz0sym9jqu6  func_webhookstash.1   functions/webhookstash:latest   ubuntu-179  
 3udkdbip8c4p  func_wordcount.1  functions/alpine:health   Ubuntu-15   Running   Running 2 minutes ago
 
 st0c4ibfze83  func_markdown.1   alexellis2/faas-markdownrender:latest   Ubuntu-11   Running   Running about a minute ago
-
-
 
 root@ubuntu-176:/tmp/faas# docker stack services func
 
